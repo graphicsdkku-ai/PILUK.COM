@@ -570,15 +570,11 @@ function processCSV(text){
 
 function confirmImport(){
   if(pendingImport.length===0)return;
-  var added=0,updated=0;
-  pendingImport.forEach(function(p){
-    var idx=products.findIndex(function(x){return x.sku===p.sku;});
-    if(idx>-1){products[idx]=p;updated++;}else{products.push(p);added++;}
-  });
+  var count=pendingImport.length;
+  products=pendingImport.slice(); /* REPLACE all — old products removed */
   pendingImport=[];
   document.getElementById('previewBox').style.display='none';
-  showToast('Done! '+added+' added, '+updated+' updated.','success');
-  /* reset file input */
+  showToast(count+' products imported. All previous products replaced.','success');
   var fi=document.getElementById('csvFile');if(fi)fi.value='';
   renderCurrentPage();
 }
