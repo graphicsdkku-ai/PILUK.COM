@@ -8,9 +8,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <style>
 :root{
-  --bg:#0C0A18;--panel:#12102A;--card:#1A1730;--border:#252040;
-  --rose:#6B46C1;--rose-dark:#4C2FA0;--rose-light:rgba(107,70,193,.1);
-  --gold:#C8945A;--teal:#1A8A6A;
+  --bg:#0D0F14;--panel:#14171F;--card:#1A1E28;--border:#252A36;
+  --rose:#C05572;--rose-dark:#9B3D58;--rose-light:rgba(192,85,114,.12);
+  --gold:#C8945A;--teal:#2DD4BF;
   --text:#E8ECF4;--muted:#6B7280;--sub:#9CA3AF;
   --success:#10B981;--warning:#F59E0B;--danger:#EF4444;
   --font:'DM Sans',sans-serif;--font-h:'Cormorant Garamond',serif;
@@ -35,7 +35,7 @@ input,select,textarea{font-family:var(--font)}
 .login-inp:focus{border-color:var(--rose)}
 .login-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);cursor:pointer;font-size:14px;transition:color .2s;background:none;border:none;padding:0}
 .login-eye:hover{color:var(--rose)}
-.login-btn{width:100%;padding:12px;background:linear-gradient(135deg,#3D2280,#6B46C1);color:white;border-radius:8px;font-size:14px;font-weight:700;transition:background .2s}
+.login-btn{width:100%;padding:12px;background:var(--rose);color:white;border-radius:8px;font-size:14px;font-weight:700;transition:background .2s}
 .login-btn:hover{background:var(--rose-dark)}
 .login-err{color:var(--danger);font-size:12px;text-align:center;margin-top:10px;min-height:18px}
 .login-back{text-align:center;margin-top:16px}
@@ -47,7 +47,7 @@ input,select,textarea{font-family:var(--font)}
 .app.show{display:flex}
 .sidebar{width:220px;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
 .sidebar-logo{padding:22px 20px;border-bottom:1px solid var(--border)}
-.sidebar-brand{font-family:var(--font-h);font-size:24px;font-weight:700;background:linear-gradient(135deg,#9F7AEA,#2DD4BF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:3px}
+.sidebar-brand{font-family:var(--font-h);font-size:24px;font-weight:700;color:var(--rose);letter-spacing:3px}
 .sidebar-tagline{font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:2px}
 .sidebar-nav{flex:1;padding:12px 10px;overflow-y:auto}
 .nav-label{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;padding:8px 10px 4px}
@@ -63,8 +63,8 @@ input,select,textarea{font-family:var(--font)}
 .topbar-title{font-size:16px;font-weight:700}
 .topbar-actions{display:flex;align-items:center;gap:10px}
 .btn-sm{padding:7px 14px;border-radius:7px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:all .2s;cursor:pointer;border:none}
-.btn-rose{background:linear-gradient(135deg,#3D2280,#6B46C1);color:white}
-.btn-rose:hover{background:#4C2FA0}
+.btn-rose{background:var(--rose);color:white}
+.btn-rose:hover{background:var(--rose-dark)}
 .btn-teal{background:rgba(45,212,191,.15);color:var(--teal);border:1px solid rgba(45,212,191,.25)}
 .btn-teal:hover{background:rgba(45,212,191,.25)}
 .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--sub)}
@@ -208,130 +208,6 @@ tr:hover td{background:rgba(255,255,255,.015)}
 .toast.success i{color:var(--success)}
 .toast.danger i{color:var(--danger)}
 .toast.info i{color:var(--teal)}
-
-/* ══════════════════════════════════
-   MOBILE RESPONSIVE — ADMIN PANEL
-   ══════════════════════════════════ */
-
-/* Hamburger button — hidden on desktop */
-.mob-menu-btn{display:none;width:36px;height:36px;border-radius:8px;background:var(--card);border:1px solid var(--border);color:var(--text);align-items:center;justify-content:center;font-size:15px;cursor:pointer;flex-shrink:0}
-
-/* Sidebar overlay for mobile */
-.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1099;backdrop-filter:blur(3px)}
-.sidebar-overlay.open{display:block}
-
-/* LOGIN */
-@media(max-width:500px){
-  .login-box{width:calc(100vw - 32px);padding:28px 22px;border-radius:12px}
-  .login-logo{font-size:30px}
-}
-
-/* APP SHELL */
-@media(max-width:768px){
-  /* Make app full height, no overflow issues */
-  .app{flex-direction:column;height:100dvh;height:100vh}
-
-  /* SIDEBAR — off-canvas drawer */
-  .sidebar{
-    position:fixed;left:-240px;top:0;bottom:0;width:240px;
-    z-index:1100;transition:left .3s cubic-bezier(.4,0,.2,1);
-    box-shadow:8px 0 32px rgba(0,0,0,.4)
-  }
-  .sidebar.open{left:0}
-  .sidebar-logo{padding:16px 16px}
-  .sidebar-brand{font-size:20px}
-  .sidebar-foot{padding:12px 16px}
-
-  /* MAIN — full width */
-  .main{width:100%;overflow:hidden}
-
-  /* TOPBAR */
-  .topbar{padding:0 14px;height:52px;gap:10px}
-  .topbar-title{font-size:14px;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .topbar-actions{gap:7px}
-  .btn-sm{padding:6px 11px;font-size:11px;gap:4px}
-  /* hide download btn text on very small, keep icon */
-  .topbar-actions .btn-sm:first-child span{display:none}
-  .mob-menu-btn{display:flex}
-
-  /* CONTENT */
-  .content{padding:14px;overflow-y:auto;-webkit-overflow-scrolling:touch}
-
-  /* STATS GRID — 2x2 */
-  .stats-grid{grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-  .stat-card{padding:14px 12px;gap:10px}
-  .stat-icon{width:36px;height:36px;font-size:14px;border-radius:8px}
-  .stat-value{font-size:18px}
-  .stat-label{font-size:9px}
-  .stat-note{font-size:10px}
-
-  /* DASHBOARD 2-col grid → single col */
-  div[style*="grid-template-columns:1fr 1fr"]{display:flex !important;flex-direction:column !important}
-
-  /* TABLE */
-  .table-wrap{border-radius:10px;overflow:hidden}
-  .table-toolbar{padding:10px 12px;gap:8px;flex-wrap:wrap}
-  .tbl-search{min-width:100%;order:-1;font-size:13px}
-  .tbl-sel{font-size:11px;padding:6px 8px;flex:1}
-  th{padding:8px 10px;font-size:9px}
-  td{padding:9px 10px;font-size:12px}
-  .td-img{width:36px;height:36px}
-  .td-name{font-size:12px}
-  .td-sub{font-size:10px}
-  /* hide less-important columns on mobile */
-  th:nth-child(4),td:nth-child(4),
-  th:nth-child(6),td:nth-child(6){display:none}
-  .act-btn{width:30px;height:30px;font-size:13px}
-  .pagination{padding:10px 12px;font-size:11px;flex-wrap:wrap;gap:8px}
-  .pg-btn{width:26px;height:26px;font-size:11px}
-
-  /* UPLOAD PAGE — single column */
-  .upload-page{grid-template-columns:1fr;gap:14px}
-  .up-card{padding:18px 16px}
-  .up-title{font-size:14px}
-  .drop-zone{padding:28px 16px}
-  .drop-zone i{font-size:28px}
-  .preview-list{max-height:160px}
-
-  /* DOWNLOAD PAGE */
-  .dl-box{flex-direction:column;gap:14px;padding:18px 16px}
-  .dl-btn{width:100%;justify-content:center;padding:12px 20px}
-  .steps{gap:10px}
-  .step{padding:12px 14px;gap:10px}
-  .step-num{width:24px;height:24px;font-size:11px}
-  .step-body h5{font-size:13px}
-  .step-body p{font-size:12px}
-
-  /* EDIT MODAL */
-  .modal-ov{padding:0;align-items:flex-end}
-  .modal-box{border-radius:18px 18px 0 0;max-height:92vh;max-width:100%}
-  .modal-head{padding:14px 18px}
-  .modal-body{padding:16px 18px}
-  .form-grid{grid-template-columns:1fr;gap:12px}
-  .fg.full{grid-column:1}
-  .modal-foot{padding:12px 18px;gap:8px}
-  .btn-md{padding:10px 16px;font-size:12px}
-  .toggle-row{gap:8px}
-  .tog{width:34px;height:18px}
-
-  /* DELETE MODAL */
-  .del-modal-box{max-width:100%;border-radius:18px 18px 0 0}
-
-  /* CONFIG GRID */
-  .config-grid{grid-template-columns:1fr;max-width:100%}
-
-  /* Toast */
-  .toast-wrap{right:12px;bottom:12px}
-  .toast{max-width:260px;font-size:12px}
-}
-
-@media(max-width:400px){
-  .stats-grid{grid-template-columns:1fr 1fr;gap:8px}
-  .stat-card{padding:12px 10px}
-  .stat-value{font-size:16px}
-  .content{padding:10px}
-  th:nth-child(3),td:nth-child(3){display:none}
-}
 </style>
 </head>
 <body>
@@ -373,7 +249,6 @@ tr:hover td{background:rgba(255,255,255,.015)}
 
   <div class="main">
     <div class="topbar">
-      <button class="mob-menu-btn" onclick="toggleSidebar()" aria-label="Menu"><i class="fas fa-bars"></i></button>
       <div class="topbar-title" id="topbarTitle">Dashboard</div>
       <div class="topbar-actions">
         <button class="btn-sm btn-teal" onclick="showPage('download')"><i class="fas fa-download"></i>Download products.json</button>
@@ -449,9 +324,6 @@ tr:hover td{background:rgba(255,255,255,.015)}
   </div>
 </div>
 
-<!-- SIDEBAR OVERLAY (mobile) -->
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
@@ -497,7 +369,6 @@ async function loadExisting(){
 
 /* ── NAVIGATION ── */
 function showPage(page,el){
-  closeSidebar();
   currentPage=1;tableQ='';tableCat='';tableStock='';
   document.querySelectorAll('.nav-link').forEach(function(n){n.classList.remove('active');});
   if(el){el.classList.add('active');}
@@ -699,11 +570,15 @@ function processCSV(text){
 
 function confirmImport(){
   if(pendingImport.length===0)return;
-  var count=pendingImport.length;
-  products=pendingImport.slice(); /* REPLACE all — old products removed */
+  var added=0,updated=0;
+  pendingImport.forEach(function(p){
+    var idx=products.findIndex(function(x){return x.sku===p.sku;});
+    if(idx>-1){products[idx]=p;updated++;}else{products.push(p);added++;}
+  });
   pendingImport=[];
   document.getElementById('previewBox').style.display='none';
-  showToast(count+' products imported. All previous products replaced.','success');
+  showToast('Done! '+added+' added, '+updated+' updated.','success');
+  /* reset file input */
   var fi=document.getElementById('csvFile');if(fi)fi.value='';
   renderCurrentPage();
 }
@@ -850,21 +725,6 @@ function showToast(msg,type){
   wrap.appendChild(t);
   requestAnimationFrame(function(){requestAnimationFrame(function(){t.classList.add('show');});});
   setTimeout(function(){t.classList.remove('show');setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},350);},4000);
-}
-
-/* ── MOBILE SIDEBAR ── */
-function toggleSidebar(){
-  var sb=document.getElementById('app').querySelector('.sidebar');
-  var ov=document.getElementById('sidebarOverlay');
-  sb.classList.toggle('open');
-  ov.classList.toggle('open');
-  document.body.style.overflow=sb.classList.contains('open')?'hidden':'';
-}
-function closeSidebar(){
-  var sb=document.getElementById('app').querySelector('.sidebar');
-  var ov=document.getElementById('sidebarOverlay');
-  sb.classList.remove('open');ov.classList.remove('open');
-  document.body.style.overflow='';
 }
 
 /* ── KEYBOARD ── */
