@@ -3,732 +3,497 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>PILUK Admin Panel</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<title>PILUK — Admin Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-:root{
-  --bg:#0D0F14;--panel:#14171F;--card:#1A1E28;--border:#252A36;
-  --rose:#C05572;--rose-dark:#9B3D58;--rose-light:rgba(192,85,114,.12);
-  --gold:#C8945A;--teal:#2DD4BF;
-  --text:#E8ECF4;--muted:#6B7280;--sub:#9CA3AF;
-  --success:#10B981;--warning:#F59E0B;--danger:#EF4444;
-  --font:'DM Sans',sans-serif;--font-h:'Cormorant Garamond',serif;
-  --radius:10px;
-}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
-button{cursor:pointer;font-family:var(--font);border:none}
-input,select,textarea{font-family:var(--font)}
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:var(--panel)}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+:root{
+  --pink:#d4608a;--pink-d:#b8496f;--pink-dd:#9a3358;--pink-l:#fce8f0;--pink-ll:#fef5f8;
+  --white:#fff;--bg:#fdf8fb;
+  --text:#2d2d2d;--text2:#555;--muted:#888;--light:#bbb;
+  --border:#ede0e8;--border2:#e0ccd6;
+  --green:#10b981;--red:#ef4444;
+  --r4:4px;--r6:6px;--r8:8px;--r12:12px;--rf:9999px;
+  --shadow:0 2px 8px rgba(0,0,0,.07);--shadow2:0 4px 16px rgba(0,0,0,.11);
+  --tr:.2s ease;--font:"Nunito",sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;line-height:1.5;overflow-x:hidden}
+button{cursor:pointer;border:none;outline:none;font-family:var(--font)}
+input,select,textarea{font-family:var(--font);outline:none}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#f0f0f0}::-webkit-scrollbar-thumb{background:var(--pink);border-radius:3px}
 
 /* LOGIN */
-.login-screen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center}
-.login-box{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:40px;width:380px;box-shadow:0 24px 64px rgba(0,0,0,.5)}
-.login-logo{font-family:var(--font-h);font-size:36px;font-weight:700;color:var(--rose);letter-spacing:4px;text-align:center;margin-bottom:4px}
-.login-sub{text-align:center;font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:30px}
-.login-label{font-size:11px;color:var(--sub);margin-bottom:6px;display:block;font-weight:600;letter-spacing:.5px}
-.login-inp-wrap{position:relative;margin-bottom:20px}
-.login-inp{width:100%;padding:11px 42px 11px 14px;background:var(--card);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none;transition:border-color .2s}
-.login-inp:focus{border-color:var(--rose)}
-.login-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);cursor:pointer;font-size:14px;transition:color .2s;background:none;border:none;padding:0}
-.login-eye:hover{color:var(--rose)}
-.login-btn{width:100%;padding:12px;background:var(--rose);color:white;border-radius:8px;font-size:14px;font-weight:700;transition:background .2s}
-.login-btn:hover{background:var(--rose-dark)}
-.login-err{color:var(--danger);font-size:12px;text-align:center;margin-top:10px;min-height:18px}
-.login-back{text-align:center;margin-top:16px}
-.login-back a{font-size:12px;color:var(--muted);transition:color .2s;text-decoration:none}
-.login-back a:hover{color:var(--rose)}
+#login-pg{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fef5f8 0%,#fce8f0 40%,#f8d0e4 100%);padding:20px;position:relative;overflow:hidden}
+#login-pg::before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:var(--pink);opacity:.05;top:-150px;right:-150px;pointer-events:none}
+#login-pg::after{content:"";position:absolute;width:350px;height:350px;border-radius:50%;background:var(--pink);opacity:.06;bottom:-100px;left:-100px;pointer-events:none}
+.login-card{background:#fff;border-radius:var(--r12);box-shadow:var(--shadow2);padding:40px 36px;width:100%;max-width:420px;position:relative;z-index:1;border-top:4px solid var(--pink)}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px}
+.logo-icon{width:38px;height:38px;background:var(--pink);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:18px}
+.login-title{font-size:20px;font-weight:800;color:var(--text)}
+.login-title span{color:var(--pink)}
+.login-sub{text-align:center;font-size:13px;color:var(--muted);margin-bottom:28px}
+.login-badge{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--pink-l);border:1px solid rgba(212,96,138,.3);border-radius:var(--rf);padding:5px 14px;font-size:11px;font-weight:700;color:var(--pink-dd);text-transform:uppercase;letter-spacing:.8px;margin:0 auto 28px;width:fit-content}
+.fl{display:block;font-size:12px;font-weight:700;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.fi{width:100%;border:1.5px solid var(--border2);border-radius:var(--r6);padding:11px 14px;font-size:14px;color:var(--text);transition:var(--tr);background:var(--bg)}
+.fi:focus{border-color:var(--pink);background:#fff;box-shadow:0 0 0 3px rgba(212,96,138,.12)}
+.fi::placeholder{color:var(--light)}
+.mb{margin-bottom:18px}
+.btn-login{width:100%;background:var(--pink);color:#fff;font-weight:800;font-size:14px;padding:13px;border-radius:var(--r6);transition:var(--tr)}
+.btn-login:hover{background:var(--pink-d);transform:translateY(-1px);box-shadow:0 4px 14px rgba(212,96,138,.35)}
+.login-err{background:#fef2f2;border:1.5px solid #fecaca;border-radius:var(--r6);padding:10px 14px;font-size:12.5px;color:#dc2626;margin-bottom:16px;display:none}
+.back-link{display:block;text-align:center;margin-top:16px;font-size:13px;color:var(--muted);cursor:pointer;transition:var(--tr)}
+.back-link:hover{color:var(--pink)}
 
-/* APP */
-.app{display:none;height:100vh;overflow:hidden}
-.app.show{display:flex}
-.sidebar{width:220px;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
-.sidebar-logo{padding:22px 20px;border-bottom:1px solid var(--border)}
-.sidebar-brand{font-family:var(--font-h);font-size:24px;font-weight:700;color:var(--rose);letter-spacing:3px}
-.sidebar-tagline{font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:2px}
-.sidebar-nav{flex:1;padding:12px 10px;overflow-y:auto}
-.nav-label{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;padding:8px 10px 4px}
-.nav-link{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;font-weight:500;color:var(--sub);cursor:pointer;transition:all .18s;margin-bottom:2px}
-.nav-link i{font-size:14px;width:18px;text-align:center}
-.nav-link:hover{background:rgba(255,255,255,.05);color:var(--text)}
-.nav-link.active{background:var(--rose-light);color:var(--rose)}
-.sidebar-foot{padding:14px 20px;border-top:1px solid var(--border)}
-.store-link{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);transition:color .2s;cursor:pointer;text-decoration:none}
-.store-link:hover{color:var(--teal)}
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.topbar{padding:0 24px;height:56px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--panel);flex-shrink:0}
-.topbar-title{font-size:16px;font-weight:700}
-.topbar-actions{display:flex;align-items:center;gap:10px}
-.btn-sm{padding:7px 14px;border-radius:7px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:all .2s;cursor:pointer;border:none}
-.btn-rose{background:var(--rose);color:white}
-.btn-rose:hover{background:var(--rose-dark)}
-.btn-teal{background:rgba(45,212,191,.15);color:var(--teal);border:1px solid rgba(45,212,191,.25)}
-.btn-teal:hover{background:rgba(45,212,191,.25)}
-.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--sub)}
-.btn-ghost:hover{border-color:var(--rose);color:var(--rose)}
-.content{flex:1;overflow-y:auto;padding:24px}
+/* ADMIN LAYOUT */
+#admin-pg{display:none;min-height:100vh}
+.adm-wrap{display:flex;min-height:100vh}
 
-/* STAT CARDS */
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;align-items:flex-start;gap:14px}
-.stat-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.si-rose{background:var(--rose-light);color:var(--rose)}
-.si-teal{background:rgba(45,212,191,.12);color:var(--teal)}
-.si-gold{background:rgba(200,148,90,.12);color:var(--gold)}
-.si-green{background:rgba(16,185,129,.12);color:var(--success)}
-.stat-label{font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.stat-value{font-size:22px;font-weight:700;line-height:1}
-.stat-note{font-size:11px;color:var(--sub);margin-top:4px}
+/* SIDEBAR */
+.sidebar{width:242px;background:#fff;border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;box-shadow:var(--shadow)}
+.sb-header{padding:18px 16px;border-bottom:1px solid var(--border)}
+.sb-logo{display:flex;align-items:center;gap:8px}
+.sb-logo-icon{width:32px;height:32px;background:var(--pink);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px}
+.sb-logo-text{font-size:15px;font-weight:800;color:var(--text)}
+.sb-logo-text span{color:var(--pink)}
+.sb-ver{font-size:10px;color:var(--muted);margin-top:2px;font-weight:600}
+.sb-section{padding:12px 10px 0}
+.sb-lbl{font-size:10px;font-weight:800;color:var(--light);text-transform:uppercase;letter-spacing:1.5px;padding:0 6px 8px;display:block}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--r6);font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;transition:var(--tr);margin-bottom:2px;border:1.5px solid transparent}
+.sb-item:hover{color:var(--pink-d);background:var(--pink-l)}
+.sb-item.act{color:var(--pink-dd);background:var(--pink-l);border-color:rgba(212,96,138,.25);font-weight:700}
+.sb-icon{width:18px;text-align:center;font-size:15px;flex-shrink:0}
+.sb-count{margin-left:auto;background:var(--pink);color:#fff;font-size:10px;font-weight:800;padding:1px 7px;border-radius:var(--rf)}
+.sb-bottom{margin-top:auto;padding:14px 10px;border-top:1px solid var(--border)}
+.btn-logout{width:100%;background:#fef2f2;border:1.5px solid #fecaca;color:#dc2626;font-weight:700;font-size:12.5px;padding:9px;border-radius:var(--r6);transition:var(--tr)}
+.btn-logout:hover{background:#fee2e2}
 
-/* TABLE */
-.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-.table-toolbar{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.tbl-search{flex:1;min-width:180px;padding:8px 13px;background:var(--panel);border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:13px;outline:none;transition:border-color .2s}
-.tbl-search:focus{border-color:var(--rose)}
-.tbl-search::placeholder{color:var(--muted)}
-select.tbl-sel{padding:8px 12px;background:var(--panel);border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:12px;outline:none;cursor:pointer}
-select.tbl-sel:focus{border-color:var(--rose)}
-table{width:100%;border-collapse:collapse}
-th{padding:10px 16px;text-align:left;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--panel)}
-td{padding:10px 16px;font-size:13px;border-bottom:1px solid rgba(37,42,54,.6);vertical-align:middle}
+/* MAIN */
+.adm-main{flex:1;overflow-y:auto;background:var(--bg)}
+.adm-topbar{background:var(--pink);color:#fff;padding:0 20px;height:50px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(212,96,138,.3)}
+.adm-tb-title{font-weight:800;font-size:14px;display:flex;align-items:center;gap:10px}
+.adm-tb-right{display:flex;align-items:center;gap:10px}
+.adm-tb-btn{background:rgba(255,255,255,.18);color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border-radius:var(--rf);transition:var(--tr);border:none;cursor:pointer;font-family:var(--font)}
+.adm-tb-btn:hover{background:rgba(255,255,255,.3)}
+.mob-sb-btn{display:none;background:rgba(255,255,255,.2);color:#fff;padding:6px 10px;border-radius:var(--r6);font-size:16px;cursor:pointer;border:none}
+@media(max-width:768px){.sidebar{display:none;position:fixed;z-index:201;height:100vh}.sidebar.open{display:flex}.adm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:200}.adm-overlay.open{display:block}.mob-sb-btn{display:block}}
+.adm-content{padding:22px;max-width:1100px}
+@media(max-width:600px){.adm-content{padding:14px}}
+
+/* COMMON */
+.pg-header{margin-bottom:20px}
+.pg-title{font-size:20px;font-weight:800;color:var(--text)}
+.pg-sub{font-size:13px;color:var(--muted);margin-top:2px}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:20px}
+.stat-box{background:#fff;border:1px solid var(--border);border-radius:var(--r8);padding:18px;transition:var(--tr);position:relative;overflow:hidden}
+.stat-box:hover{box-shadow:var(--shadow2);border-color:var(--pink);transform:translateY(-2px)}
+.stat-box::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--pink)}
+.stat-icon{font-size:28px;margin-bottom:8px}
+.stat-num{font-size:26px;font-weight:800;color:var(--pink)}
+.stat-lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.qa-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.btn{font-family:var(--font);font-weight:700;font-size:12.5px;padding:9px 18px;border-radius:var(--r6);transition:var(--tr);cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:none}
+.btn-teal{background:var(--pink);color:#fff;box-shadow:0 2px 8px rgba(212,96,138,.25)}
+.btn-teal:hover{background:var(--pink-d);transform:translateY(-1px)}
+.btn-outline{background:#fff;border:1.5px solid var(--border2);color:var(--text2)}
+.btn-outline:hover{border-color:var(--pink);color:var(--pink)}
+.btn-green{background:#ecfdf5;border:1.5px solid #a7f3d0;color:#059669}
+.btn-green:hover{background:#d1fae5}
+.btn-red{background:#fef2f2;border:1.5px solid #fecaca;color:#dc2626}
+.btn-red:hover{background:#fee2e2}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--r8);overflow:hidden;box-shadow:var(--shadow);margin-bottom:18px}
+.card-head{background:#fafafa;border-bottom:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.card-title{font-size:13px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:6px}
+.card-title::before{content:"";width:4px;height:14px;background:var(--pink);border-radius:2px;display:inline-block}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:600px}
+th{background:#f9fafb;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:11px 14px;font-size:13px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(255,255,255,.015)}
-.td-img{width:42px;height:42px;object-fit:contain;border-radius:7px;background:var(--panel);padding:4px}
-.td-name{font-weight:600}
-.td-sub{font-size:11px;color:var(--muted);margin-top:2px}
-.chip{display:inline-flex;align-items:center;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.4px}
-.chip-green{background:rgba(16,185,129,.15);color:var(--success)}
-.chip-red{background:rgba(239,68,68,.12);color:var(--danger)}
-.chip-gold{background:rgba(200,148,90,.15);color:var(--gold)}
-.chip-rose{background:var(--rose-light);color:var(--rose)}
-.chip-teal{background:rgba(45,212,191,.12);color:var(--teal)}
-.act-btn{width:27px;height:27px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;transition:all .18s;cursor:pointer;border:none;margin-left:3px}
-.act-edit{background:rgba(45,212,191,.1);color:var(--teal)}
-.act-edit:hover{background:var(--teal);color:var(--bg)}
-.act-del{background:rgba(239,68,68,.1);color:var(--danger)}
-.act-del:hover{background:var(--danger);color:white}
-.pagination{padding:12px 18px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--muted)}
-.pg-btns{display:flex;gap:5px}
-.pg-btn{width:27px;height:27px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--sub);transition:all .18s}
-.pg-btn:hover,.pg-btn.active{background:var(--rose);color:white;border-color:var(--rose)}
+tr:hover td{background:#fef8fb}
+.td-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 9px;border-radius:var(--rf);background:var(--pink-l);color:var(--pink-dd);border:1px solid rgba(212,96,138,.25);text-transform:uppercase;font-family:monospace}
+.td-sku{font-family:monospace;font-size:11px;color:var(--muted);background:#f5f5f5;padding:2px 7px;border-radius:var(--r4);border:1px solid var(--border)}
+.td-desc{max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text2);font-size:12px}
+.td-imgs{display:flex;gap:4px;align-items:center}
+.td-img-box{width:28px;height:28px;border-radius:var(--r4);border:1px solid var(--border);background:#fafafa;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.td-img-box img{width:100%;height:100%;object-fit:contain;padding:2px}
+.empty-st{text-align:center;padding:44px 20px;color:var(--muted)}
+.empty-st .ei{font-size:2.8rem;margin-bottom:12px;opacity:.3}
 
-/* UPLOAD PAGE */
-.upload-page{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.up-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px}
-.up-card.full{grid-column:1/-1}
-.up-title{font-size:15px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.up-title i{color:var(--rose)}
-.up-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+/* FORM */
+.form-card{background:#fff;border:1px solid var(--border);border-radius:var(--r8);padding:22px;box-shadow:var(--shadow);margin-bottom:18px}
+.form-section{font-size:11px;font-weight:800;color:var(--pink-d);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.form-section::before{content:"";width:18px;height:2px;background:var(--pink);border-radius:2px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:640px){.form-row,.form-row-3{grid-template-columns:1fr}}
+.form-grp{margin-bottom:14px}
+.form-lbl{display:block;font-size:11px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.form-lbl .opt{font-weight:500;color:var(--light);text-transform:none;letter-spacing:0}
+.form-inp{width:100%;border:1.5px solid var(--border2);border-radius:var(--r6);padding:10px 13px;font-size:13px;color:var(--text);transition:var(--tr);background:#fafafa}
+.form-inp:focus{border-color:var(--pink);background:#fff;box-shadow:0 0 0 3px rgba(212,96,138,.1)}
+.form-inp::placeholder{color:var(--light)}
+select.form-inp option{background:#fff}
+textarea.form-inp{resize:vertical;min-height:76px;line-height:1.5}
+.sku-row{display:flex;gap:8px;align-items:flex-end}
+.sku-row .form-inp{flex:1}
+.btn-gen-sku{background:var(--pink);color:#fff;font-weight:700;font-size:12px;padding:10px 14px;border-radius:var(--r6);white-space:nowrap;height:40px;transition:var(--tr)}
+.btn-gen-sku:hover{background:var(--pink-d)}
+.img-prev-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.img-prev-box{width:60px;height:60px;border-radius:var(--r6);border:1.5px solid var(--border);background:#fafafa;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.img-prev-box img{width:100%;height:100%;object-fit:contain;padding:4px}
+.img-prev-box.has-img{border-color:var(--pink)}
+.btn-submit{width:100%;background:var(--pink);color:#fff;font-weight:800;font-size:14px;padding:12px;border-radius:var(--r6);transition:var(--tr);margin-top:4px}
+.btn-submit:hover{background:var(--pink-d);transform:translateY(-1px);box-shadow:0 4px 14px rgba(212,96,138,.3)}
 
-/* DROP ZONE */
-.drop-zone{border:2px dashed var(--border);border-radius:10px;padding:40px 20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
-.drop-zone:hover,.drop-zone.over{border-color:var(--rose);background:var(--rose-light)}
-.drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.drop-zone i{font-size:36px;color:var(--muted);margin-bottom:12px;display:block;pointer-events:none}
-.drop-zone .dz-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;pointer-events:none}
-.drop-zone .dz-sub{font-size:12px;color:var(--muted);pointer-events:none}
-.drop-zone .dz-sub span{color:var(--rose)}
+/* SLIDER MANAGEMENT */
+.slide-list{display:flex;flex-direction:column;gap:12px}
+.slide-item{background:#fafafa;border:1.5px solid var(--border);border-radius:var(--r8);padding:14px;display:flex;align-items:center;gap:14px;transition:var(--tr)}
+.slide-item:hover{border-color:var(--pink);background:var(--pink-ll)}
+.slide-num{font-family:monospace;font-size:11px;font-weight:700;color:var(--light);background:var(--border);padding:2px 8px;border-radius:var(--r4);flex-shrink:0}
+.slide-thumb{width:90px;height:54px;border-radius:var(--r6);overflow:hidden;background:#e0e0e0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:1px solid var(--border)}
+.slide-thumb img{width:100%;height:100%;object-fit:cover}
+.slide-info{flex:1;min-width:0}
+.slide-title-text{font-weight:700;font-size:13px;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slide-label-text{font-size:11px;color:var(--muted)}
+.slide-url-text{font-size:10px;color:var(--light);font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slide-actions{display:flex;gap:6px;flex-shrink:0}
 
-/* PREVIEW BOX */
-.preview-box{margin-top:18px;background:var(--panel);border:1px solid var(--border);border-radius:9px;overflow:hidden;display:none}
-.preview-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.preview-title{font-size:13px;font-weight:700}
-.preview-count{font-size:11px;color:var(--muted)}
-.preview-list{max-height:200px;overflow-y:auto}
-.preview-row{padding:9px 16px;border-bottom:1px solid rgba(37,42,54,.5);display:flex;align-items:center;gap:10px;font-size:12px}
-.preview-row:last-child{border-bottom:none}
-.preview-row i{font-size:11px;flex-shrink:0}
-.i-new{color:var(--teal)}
-.i-update{color:var(--gold)}
-.preview-actions{padding:14px 16px;border-top:1px solid var(--border);display:flex;gap:10px}
+/* UPLOAD ZONE */
+.upload-zone{border:2px dashed var(--border2);border-radius:var(--r8);padding:40px 24px;text-align:center;cursor:pointer;transition:var(--tr);background:#fafafa;position:relative;margin-bottom:16px}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--pink);background:var(--pink-ll)}
+.upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.uz-icon{font-size:2.5rem;margin-bottom:10px}
+.uz-title{font-size:15px;font-weight:800;color:var(--text);margin-bottom:5px}
+.uz-sub{font-size:12.5px;color:var(--muted)}
+.csv-fmt{background:var(--pink-l);border:1.5px solid rgba(212,96,138,.3);border-radius:var(--r6);padding:14px 16px;font-size:12px;color:var(--pink-dd);line-height:1.8;margin-bottom:16px}
+.csv-fmt code{background:rgba(212,96,138,.15);padding:1px 6px;border-radius:3px;font-size:11.5px;font-family:monospace}
+.prog-wrap{background:#fff;border:1px solid var(--border);border-radius:var(--r6);padding:16px;margin-bottom:16px;display:none}
+.prog-wrap.show{display:block}
+.prog-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:7px}
+.prog-bg{background:#eee;border-radius:var(--rf);height:6px;overflow:hidden;margin:8px 0}
+.prog-bar{height:100%;background:var(--pink);border-radius:var(--rf);transition:width .4s ease}
+.prog-sub{font-size:12px;color:var(--muted)}
 
-/* DOWNLOAD SECTION */
-.dl-box{background:linear-gradient(135deg,var(--rose-light) 0%,rgba(200,148,90,.08) 100%);border:1px solid rgba(192,85,114,.2);border-radius:10px;padding:22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.dl-info h4{font-size:15px;font-weight:700;margin-bottom:4px}
-.dl-info p{font-size:12px;color:var(--muted);line-height:1.6}
-.dl-btn{background:var(--rose);color:white;padding:11px 22px;border-radius:8px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
-.dl-btn:hover{background:var(--rose-dark);transform:translateY(-1px)}
-.dl-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+/* TOAST / MODAL */
+.toast{position:fixed;bottom:22px;right:22px;z-index:9999;background:#2d1020;color:#fff;border-radius:var(--r8);padding:12px 18px;display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;box-shadow:var(--shadow2);transform:translateY(16px) scale(.95);opacity:0;pointer-events:none;transition:all .3s ease}
+.toast.show{transform:translateY(0) scale(1);opacity:1}
+.toast.suc{border-left:3px solid var(--green)}
+.toast.err{border-left:3px solid var(--red)}
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:700;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:var(--tr)}
+.modal-ov.open{opacity:1;pointer-events:auto}
+.modal{background:#fff;border-radius:var(--r12);padding:28px;width:100%;max-width:420px;box-shadow:var(--shadow2);transform:translateY(16px) scale(.96);transition:var(--tr)}
+.modal-ov.open .modal{transform:translateY(0) scale(1)}
+.modal-title{font-size:16px;font-weight:800;color:var(--text);margin-bottom:8px}
+.modal-body{font-size:13px;color:var(--muted);line-height:1.65}
+.modal-acts{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
 
-/* STEPS */
-.steps{display:flex;flex-direction:column;gap:12px;margin-top:16px}
-.step{display:flex;align-items:flex-start;gap:13px;padding:13px 16px;background:var(--panel);border:1px solid var(--border);border-radius:8px}
-.step-num{width:26px;height:26px;border-radius:50%;background:var(--rose);color:white;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.step-body h5{font-size:13px;font-weight:700;margin-bottom:3px}
-.step-body p{font-size:12px;color:var(--muted);line-height:1.6}
-.step-body code{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-size:11px;color:var(--teal);font-family:monospace}
-
-/* EDIT MODAL */
-.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:3000;display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(6px)}
-.modal-ov.open{display:flex}
-.modal-box{background:var(--panel);border:1px solid var(--border);border-radius:16px;width:100%;max-width:700px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.6)}
-.modal-head{padding:17px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--panel);z-index:1}
-.modal-head h3{font-size:16px;font-weight:700}
-.modal-x{width:30px;height:30px;border-radius:7px;background:var(--card);display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;font-size:13px;border:none;transition:all .18s}
-.modal-x:hover{background:var(--danger);color:white}
-.modal-body{padding:22px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fg{display:flex;flex-direction:column;gap:5px}
-.fg.full{grid-column:1/-1}
-.flbl{font-size:10px;font-weight:700;color:var(--sub);letter-spacing:.5px;text-transform:uppercase}
-.finp,.fsel,.fta{padding:9px 12px;background:var(--card);border:1.5px solid var(--border);border-radius:7px;color:var(--text);font-size:13px;outline:none;transition:border-color .2s;width:100%}
-.finp:focus,.fsel:focus,.fta:focus{border-color:var(--rose)}
-.fta{resize:vertical;min-height:75px}
-.fsel option{background:var(--card)}
-.toggle-row{display:flex;align-items:center;gap:9px}
-.toggle-lbl{font-size:12px;color:var(--sub)}
-.tog{width:36px;height:20px;border-radius:10px;background:var(--border);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;border:none}
-.tog.on{background:var(--rose)}
-.tog::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:white;top:3px;left:3px;transition:left .2s}
-.tog.on::after{left:19px}
-.modal-foot{padding:14px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;position:sticky;bottom:0;background:var(--panel)}
-.btn-md{padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;transition:all .2s;display:inline-flex;align-items:center;gap:6px;border:none;cursor:pointer}
-.btn-cancel{background:var(--card);border:1px solid var(--border);color:var(--sub)}
-.btn-cancel:hover{border-color:var(--muted);color:var(--text)}
-.btn-save{background:var(--rose);color:white}
-.btn-save:hover{background:var(--rose-dark)}
-
-/* DELETE CONFIRM */
-.del-modal-box{max-width:380px;text-align:center}
-.del-icon{font-size:42px;margin-bottom:14px}
-.del-title{font-size:15px;font-weight:700;margin-bottom:6px}
-.del-sub{font-size:13px;color:var(--muted)}
-.del-warn{font-size:12px;color:var(--danger);margin-top:10px}
-.btn-danger{background:var(--danger);color:white}
-.btn-danger:hover{background:#DC2626}
-
-/* TOAST */
-.toast-wrap{position:fixed;bottom:20px;right:20px;z-index:9000;display:flex;flex-direction:column;gap:7px;pointer-events:none}
-.toast{background:var(--card);color:var(--text);border:1px solid var(--border);padding:11px 15px;border-radius:8px;font-size:13px;display:flex;align-items:center;gap:8px;transform:translateX(130%);transition:transform .3s;max-width:300px;box-shadow:0 4px 20px rgba(0,0,0,.4)}
-.toast.show{transform:translateX(0)}
-.toast i{font-size:14px;flex-shrink:0}
-.toast.success i{color:var(--success)}
-.toast.danger i{color:var(--danger)}
-.toast.info i{color:var(--teal)}
+.adm-sec{display:none}.adm-sec.act{display:block}
+.fade{animation:fu .35s ease forwards}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.tip{background:var(--pink-l);border:1px solid rgba(212,96,138,.25);border-radius:var(--r6);padding:10px 14px;font-size:12px;color:var(--pink-dd);line-height:1.6;margin-bottom:14px}
+.toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.toggle-lbl{font-size:13px;font-weight:600;color:var(--text2)}
 </style>
 </head>
 <body>
 
+<div class="toast" id="toast"><span id="ti"></span><span id="tm"></span></div>
+<div class="modal-ov" id="modal"><div class="modal"><div class="modal-title" id="mt"></div><div class="modal-body" id="mb"></div><div class="modal-acts"><button class="btn btn-outline" onclick="closeModal()">Cancel</button><button class="btn btn-red" id="mok">Confirm</button></div></div></div>
+
 <!-- LOGIN -->
-<div class="login-screen" id="loginScreen">
-  <div class="login-box">
-    <div class="login-logo">PILUK</div>
-    <div class="login-sub">Admin Panel · Secure Access</div>
-    <label class="login-label">Password</label>
-    <div class="login-inp-wrap">
-      <input class="login-inp" type="password" id="pwdInput" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()"/>
-      <button class="login-eye" onclick="togglePwd()"><i class="fas fa-eye" id="eyeIcon"></i></button>
-    </div>
-    <button class="login-btn" onclick="doLogin()"><i class="fas fa-unlock-alt"></i> Sign In</button>
-    <div class="login-err" id="loginErr"></div>
-    <div class="login-back"><a href="index.html"><i class="fas fa-arrow-left"></i> Back to Store</a></div>
+<div id="login-pg">
+  <div class="login-card">
+    <div class="login-logo"><div class="logo-icon">P</div><div class="login-title"><span>PILUK</span> Admin</div></div>
+    <div class="login-sub">Admin Panel — Secure Access Only</div>
+    <div class="login-badge">🔐 Administrator Portal</div>
+    <div class="login-err" id="lerr">❌ Incorrect password. Please try again.</div>
+    <div class="mb"><label class="fl">Admin Password</label><input class="fi" type="password" id="lpwd" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <button class="btn-login" onclick="doLogin()">🔐 Sign in to Admin Panel</button>
+    <a class="back-link" href="index.html">← Back to Store</a>
   </div>
 </div>
 
-<!-- APP -->
-<div class="app" id="app">
-  <div class="sidebar">
-    <div class="sidebar-logo">
-      <div class="sidebar-brand">PILUK</div>
-      <div class="sidebar-tagline">Admin Panel</div>
-    </div>
-    <div class="sidebar-nav">
-      <div class="nav-label">Menu</div>
-      <div class="nav-link active" onclick="showPage('dashboard',this)"><i class="fas fa-chart-pie"></i>Dashboard</div>
-      <div class="nav-link" onclick="showPage('products',this)"><i class="fas fa-shopping-bag"></i>All Products</div>
-      <div class="nav-link" onclick="showPage('upload',this)"><i class="fas fa-upload"></i>Upload CSV</div>
-      <div class="nav-link" onclick="showPage('download',this)"><i class="fas fa-download"></i>Download & Deploy</div>
-    </div>
-    <div class="sidebar-foot">
-      <a href="index.html" class="store-link"><i class="fas fa-external-link-alt"></i>View Store</a>
-    </div>
-  </div>
-
-  <div class="main">
-    <div class="topbar">
-      <div class="topbar-title" id="topbarTitle">Dashboard</div>
-      <div class="topbar-actions">
-        <button class="btn-sm btn-teal" onclick="showPage('download')"><i class="fas fa-download"></i>Download products.json</button>
-        <button class="btn-sm btn-rose" onclick="showPage('upload')"><i class="fas fa-upload"></i>Upload CSV</button>
+<!-- ADMIN -->
+<div id="admin-pg">
+  <div class="adm-overlay" id="adm-ov" onclick="closeSB()"></div>
+  <div class="adm-wrap">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sb-header"><div class="sb-logo"><div class="sb-logo-icon">P</div><div><div class="sb-logo-text"><span>PILUK</span></div><div class="sb-ver">Admin Panel v1.0</div></div></div></div>
+      <div class="sb-section">
+        <span class="sb-lbl">Overview</span>
+        <div class="sb-item act" onclick="showSec('dashboard')" id="si-dashboard"><span class="sb-icon">📊</span>Dashboard<span class="sb-count" id="sb-total">0</span></div>
       </div>
-    </div>
-    <div class="content" id="content"></div>
-  </div>
-</div>
+      <div class="sb-section">
+        <span class="sb-lbl">Products</span>
+        <div class="sb-item" onclick="showSec('products')" id="si-products"><span class="sb-icon">👜</span>All Products</div>
+        <div class="sb-item" onclick="showSec('add')" id="si-add"><span class="sb-icon">➕</span>Add Product</div>
+        <div class="sb-item" onclick="showSec('csv')" id="si-csv"><span class="sb-icon">📤</span>CSV Import</div>
+      </div>
+      <div class="sb-section">
+        <span class="sb-lbl">Storefront</span>
+        <div class="sb-item" onclick="showSec('slider')" id="si-slider"><span class="sb-icon">🎠</span>Hero Slider</div>
+        <div class="sb-item" onclick="showSec('banners')" id="si-banners"><span class="sb-icon">🖼️</span>Promo Banners</div>
+      </div>
+      <div class="sb-section">
+        <span class="sb-lbl">Data</span>
+        <div class="sb-item" onclick="dlJSON()"><span class="sb-icon">💾</span>Export JSON</div>
+        <div class="sb-item" onclick="trigImportJSON()"><span class="sb-icon">📥</span>Import JSON</div>
+        <input type="file" id="json-inp" accept=".json" style="display:none" onchange="handleJSON()"/>
+      </div>
+      <div class="sb-section"><span class="sb-lbl">Store</span><div class="sb-item" onclick="window.open('index.html','_blank')"><span class="sb-icon">🏠</span>View Store</div></div>
+      <div class="sb-bottom"><button class="btn-logout" onclick="doLogout()">🚪 Logout</button></div>
+    </aside>
 
-<!-- EDIT MODAL -->
-<div class="modal-ov" id="editModal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <h3 id="editModalTitle">Edit Product</h3>
-      <button class="modal-x" onclick="closeEditModal()"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="modal-body">
-      <div class="form-grid">
-        <div class="fg"><div class="flbl">SKU</div><input class="finp" id="eSku" placeholder="PL001"/></div>
-        <div class="fg"><div class="flbl">Category</div>
-          <select class="fsel" id="eCat">
-            <option value="">Select…</option>
-            <option>Shoulder Bags</option><option>Clutch Bags</option><option>Tote Bags</option>
-            <option>Backpacks</option><option>Crossbody Bags</option><option>Mini Bags / Wristlets</option>
-          </select>
+    <!-- MAIN -->
+    <main class="adm-main">
+      <div class="adm-topbar">
+        <div class="adm-tb-title"><button class="mob-sb-btn" onclick="openSB()">☰</button>💗 PILUK Admin Panel</div>
+        <div class="adm-tb-right"><button class="adm-tb-btn" onclick="dlJSON()">💾 Export</button><button class="adm-tb-btn" onclick="showSec('add')">➕ Add Product</button></div>
+      </div>
+      <div class="adm-content">
+
+        <!-- DASHBOARD -->
+        <div class="adm-sec act fade" id="sec-dashboard">
+          <div class="pg-header"><div class="pg-title">Dashboard</div><div class="pg-sub">Welcome back! Your PILUK store at a glance.</div></div>
+          <div class="stats-row">
+            <div class="stat-box"><div class="stat-icon">👜</div><div class="stat-num" id="st-total">0</div><div class="stat-lbl">Total Products</div></div>
+            <div class="stat-box"><div class="stat-icon">🛍️</div><div class="stat-num" id="st-tb">0</div><div class="stat-lbl">Tote Bags</div></div>
+            <div class="stat-box"><div class="stat-icon">👛</div><div class="stat-num" id="st-sb">0</div><div class="stat-lbl">Shoulder Bags</div></div>
+            <div class="stat-box"><div class="stat-icon">💼</div><div class="stat-num" id="st-cl">0</div><div class="stat-lbl">Clutches</div></div>
+            <div class="stat-box"><div class="stat-icon">🎀</div><div class="stat-num" id="st-cb">0</div><div class="stat-lbl">Crossbody</div></div>
+            <div class="stat-box"><div class="stat-icon">🎒</div><div class="stat-num" id="st-ot">0</div><div class="stat-lbl">Others</div></div>
+          </div>
+          <div class="qa-row">
+            <button class="btn btn-teal" onclick="showSec('add')">➕ Add Product</button>
+            <button class="btn btn-teal" onclick="showSec('slider')">🎠 Edit Slider</button>
+            <button class="btn btn-teal" onclick="showSec('banners')">🖼️ Edit Banners</button>
+            <button class="btn btn-green" onclick="dlJSON()">💾 Export JSON</button>
+            <button class="btn btn-red" onclick="confirmClear()">🗑️ Clear All Products</button>
+          </div>
+          <div class="card"><div class="card-head"><div class="card-title">Recent Products</div><button class="btn btn-teal" onclick="showSec('products')">View All</button></div><div class="tbl-wrap" id="tbl-recent"></div></div>
         </div>
-        <div class="fg full"><div class="flbl">Product Name</div><input class="finp" id="eName" placeholder="Name"/></div>
-        <div class="fg"><div class="flbl">Price (৳)</div><input class="finp" id="ePrice" type="number" placeholder="0"/></div>
-        <div class="fg"><div class="flbl">Original Price (৳)</div><input class="finp" id="eOrigPrice" type="number" placeholder="0"/></div>
-        <div class="fg"><div class="flbl">Colour</div><input class="finp" id="eColor" placeholder="Nude Pink"/></div>
-        <div class="fg"><div class="flbl">Size</div><input class="finp" id="eSize" placeholder="Medium"/></div>
-        <div class="fg"><div class="flbl">Material</div><input class="finp" id="eMaterial" placeholder="Leather"/></div>
-        <div class="fg"><div class="flbl">Badge</div><input class="finp" id="eBadge" placeholder="New / Hot / -20%"/></div>
-        <div class="fg"><div class="flbl">Stock</div>
-          <select class="fsel" id="eStock"><option value="in stock">In Stock</option><option value="out of stock">Out of Stock</option></select>
+
+        <!-- ALL PRODUCTS -->
+        <div class="adm-sec fade" id="sec-products">
+          <div class="pg-header"><div class="pg-title">All Products</div><div class="pg-sub">Manage your full catalog.</div></div>
+          <div class="qa-row"><button class="btn btn-green" onclick="dlJSON()">💾 Export JSON</button><button class="btn btn-red" onclick="confirmClear()">🗑️ Clear All</button><input type="text" id="prodSearch" placeholder="🔍 Search name, SKU…" style="padding:8px 13px;border:1.5px solid var(--border2);border-radius:var(--r6);font-size:13px;width:200px;font-family:var(--font)" oninput="renderAllProds()"/></div>
+          <div class="card"><div class="card-head"><div class="card-title">Product List (<span id="prod-count">0</span>)</div></div><div class="tbl-wrap" id="tbl-all"></div></div>
         </div>
-        <div class="fg full"><div class="flbl">Image URL</div><input class="finp" id="eImage" placeholder="https://…"/></div>
-        <div class="fg full"><div class="flbl">Description</div><textarea class="fta" id="eDesc"></textarea></div>
-        <div class="fg full">
-          <div class="flbl">Flags</div>
-          <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:6px">
-            <div class="toggle-row"><button class="tog" id="togFeatured" onclick="this.classList.toggle('on')"></button><span class="toggle-lbl">Featured / Bestseller</span></div>
-            <div class="toggle-row"><button class="tog" id="togHero" onclick="this.classList.toggle('on')"></button><span class="toggle-lbl">Hero Slider</span></div>
-            <div class="toggle-row"><button class="tog" id="togPromo" onclick="this.classList.toggle('on')"></button><span class="toggle-lbl">Promo Banner</span></div>
+
+        <!-- ADD PRODUCT -->
+        <div class="adm-sec fade" id="sec-add">
+          <div class="pg-header"><div class="pg-title">Add Product</div><div class="pg-sub">Add up to 3 images — they auto-slide on hover in the store.</div></div>
+          <div class="form-card">
+            <div class="form-section">Basic Info</div>
+            <div class="form-row">
+              <div class="form-grp"><label class="form-lbl">Product Name *</label><input class="form-inp" id="ap-name" type="text" placeholder="e.g. PILUK Classic Leather Tote" oninput="autoSKU()"/></div>
+              <div class="form-grp"><label class="form-lbl">Category *</label>
+                <select class="form-inp" id="ap-cat" onchange="autoSKU()">
+                  <option value="">Select Category</option>
+                  <option>Tote Bag</option><option>Shoulder Bag</option><option>Clutch</option>
+                  <option>Crossbody</option><option>Backpack</option><option>Accessories</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-grp"><label class="form-lbl">Price (BDT) *</label><input class="form-inp" id="ap-price" type="number" min="0" placeholder="e.g. 2999"/></div>
+              <div class="form-grp"><label class="form-lbl">Stock Status</label><select class="form-inp" id="ap-stock"><option>In Stock</option><option>Limited</option><option>Out of Stock</option></select></div>
+            </div>
+            <div class="form-grp"><label class="form-lbl">SKU <span class="opt">(auto-generated)</span></label><div class="sku-row"><input class="form-inp" id="ap-sku" type="text" placeholder="e.g. PL-TB-001"/><button class="btn-gen-sku" onclick="autoSKU(true)">⚡ Regen</button></div></div>
+            <div class="form-grp"><label class="form-lbl">Description <span class="opt">(shown in product popup)</span></label><textarea class="form-inp" id="ap-desc" rows="3" placeholder="Describe material, size, compartments, closure type…"></textarea></div>
+            <div class="form-grp"><label class="form-lbl">Badge <span class="opt">(HOT, NEW, SALE, BESTSELLER, TRENDING, POPULAR)</span></label><input class="form-inp" id="ap-badge" type="text" placeholder="e.g. HOT"/></div>
+          </div>
+          <div class="form-card">
+            <div class="form-section">Product Images (up to 3 — hover auto-slides in store)</div>
+            <div class="form-row-3">
+              <div class="form-grp"><label class="form-lbl">Image 1 URL <span class="opt">(main)</span></label><input class="form-inp" id="ap-img1" type="text" placeholder="https://…" oninput="prevImg('ap-img1','pv1')"/><div class="img-prev-row"><div class="img-prev-box" id="pv1">🖼️</div></div></div>
+              <div class="form-grp"><label class="form-lbl">Image 2 URL</label><input class="form-inp" id="ap-img2" type="text" placeholder="https://…" oninput="prevImg('ap-img2','pv2')"/><div class="img-prev-row"><div class="img-prev-box" id="pv2">🖼️</div></div></div>
+              <div class="form-grp"><label class="form-lbl">Image 3 URL</label><input class="form-inp" id="ap-img3" type="text" placeholder="https://…" oninput="prevImg('ap-img3','pv3')"/><div class="img-prev-row"><div class="img-prev-box" id="pv3">🖼️</div></div></div>
+            </div>
+          </div>
+          <button class="btn-submit" onclick="addProd()">➕ Add Product to Store</button>
+        </div>
+
+        <!-- CSV IMPORT -->
+        <div class="adm-sec fade" id="sec-csv">
+          <div class="pg-header"><div class="pg-title">CSV Import</div><div class="pg-sub">Bulk-upload products. Supports 3 image columns. SKUs auto-assigned if blank.</div></div>
+          <div class="form-card" style="margin-bottom:16px">
+            <div class="form-section">CSV Column Reference</div>
+            <div class="csv-fmt">All columns: <code>name, price, category, description, image_url, image_url_2, image_url_3, badge, stock, sku</code><br/>Required: <strong>name, price, category</strong> — all others optional.</div>
+            <button class="btn btn-green" onclick="dlSample()">📥 Download Sample CSV</button>
+          </div>
+          <div class="upload-zone" id="uz"><input type="file" id="csv-inp" accept=".csv" onchange="handleCSV()"/><div class="uz-icon">📤</div><div class="uz-title">Drag & Drop CSV here</div><div class="uz-sub">or click to browse · .csv only</div></div>
+          <div class="prog-wrap" id="prog"><div class="prog-title" id="prog-t">Processing…</div><div class="prog-bg"><div class="prog-bar" id="prog-b" style="width:0%"></div></div><div class="prog-sub" id="prog-s"></div></div>
+        </div>
+
+        <!-- HERO SLIDER MANAGEMENT -->
+        <div class="adm-sec fade" id="sec-slider">
+          <div class="pg-header"><div class="pg-title">Hero Slider</div><div class="pg-sub">Manage the auto-sliding banner at the top of your store. Up to 6 slides.</div></div>
+          <div class="tip">💡 <strong>Tip:</strong> Use landscape images at least 1200×380px. Free handbag & fashion photos: <strong>unsplash.com</strong> — search "handbag", "women bag", "fashion accessories". Right-click → Copy image address → paste below.</div>
+          <div class="card">
+            <div class="card-head"><div class="card-title">Current Slides (<span id="slide-count">0</span> / 6)</div><button class="btn btn-teal" onclick="showSec('add-slide')" id="addSlideBtn">➕ Add Slide</button></div>
+            <div style="padding:16px"><div class="slide-list" id="slideList"></div></div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="modal-foot">
-      <button class="btn-md btn-cancel" onclick="closeEditModal()">Cancel</button>
-      <button class="btn-md btn-save" onclick="saveEdit()"><i class="fas fa-save"></i>Save Changes</button>
-    </div>
+
+        <!-- ADD / EDIT SLIDE -->
+        <div class="adm-sec fade" id="sec-add-slide">
+          <div class="pg-header"><div class="pg-title" id="slideFormTitle">Add Hero Slide</div><div class="pg-sub">Paste a direct image URL for the slide background.</div></div>
+          <div class="form-card">
+            <div class="form-section">Slide Content</div>
+            <input type="hidden" id="slide-edit-id"/>
+            <div class="form-grp">
+              <label class="form-lbl">Slide Image URL *</label>
+              <input class="form-inp" id="sl-img" type="text" placeholder="https://images.unsplash.com/photo-xxx?w=1200&h=400&fit=crop" oninput="prevSlideImg()"/>
+              <div class="img-prev-row"><div class="img-prev-box" id="sl-prev" style="width:160px;height:90px;font-size:2rem">🖼️</div></div>
+            </div>
+            <div class="form-row">
+              <div class="form-grp"><label class="form-lbl">Slide Label <span class="opt">(e.g. "New Collection")</span></label><input class="form-inp" id="sl-label" type="text" placeholder="Festive Edit — Limited"/></div>
+              <div class="form-grp"><label class="form-lbl">Slide Title <span class="opt">(use \n for new line)</span></label><input class="form-inp" id="sl-title" type="text" placeholder="Premium Leather\nTote Bags"/></div>
+            </div>
+            <div class="form-row">
+              <div class="form-grp"><label class="form-lbl">Price / Subtitle <span class="opt">(optional)</span></label><input class="form-inp" id="sl-price" type="text" placeholder="From ৳2,999"/></div>
+              <div class="form-grp"><label class="form-lbl">Click Link</label><input class="form-inp" id="sl-link" type="text" placeholder="https://wa.me/8801754007716" value="https://wa.me/8801754007716"/></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn-submit" style="flex:1;max-width:240px" onclick="saveSlide()">💾 Save Slide</button>
+            <button class="btn btn-outline" onclick="showSec('slider')">Cancel</button>
+          </div>
+        </div>
+
+        <!-- PROMO BANNERS MANAGEMENT -->
+        <div class="adm-sec fade" id="sec-banners">
+          <div class="pg-header"><div class="pg-title">Promo Banners</div><div class="pg-sub">Manage the two promotional banners on your store homepage.</div></div>
+          <div class="tip">💡 <strong>Tip:</strong> Use an image URL or the styled text banner. For images, use 600×180px landscape format. Toggle "Use Image" to switch modes.</div>
+          <div id="bannerEditArea"></div>
+        </div>
+
+      </div><!-- /adm-content -->
+    </main>
   </div>
 </div>
-
-<!-- DELETE MODAL -->
-<div class="modal-ov" id="delModal">
-  <div class="modal-box del-modal-box">
-    <div class="modal-head" style="justify-content:flex-end;border:none;padding-bottom:0">
-      <button class="modal-x" onclick="closeDelModal()"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="modal-body" style="padding-top:6px">
-      <div class="del-icon">🗑️</div>
-      <div class="del-title">Delete this product?</div>
-      <div class="del-sub" id="delProductName"></div>
-      <div class="del-warn">This cannot be undone.</div>
-    </div>
-    <div class="modal-foot" style="justify-content:center">
-      <button class="btn-md btn-cancel" onclick="closeDelModal()">Cancel</button>
-      <button class="btn-md btn-danger" onclick="confirmDelete()"><i class="fas fa-trash-alt"></i>Delete</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast-wrap" id="toastWrap"></div>
 
 <script>
-/* ── STATE ── */
-var PASS='amitomakevalobasi';
-var products=[];   /* the single source of truth in this admin session */
-var editIdx=null,delIdx=null;
-var currentPage=1,pageSize=15,tableQ='',tableCat='',tableStock='';
-var currentView='dashboard';
+/* ── STORAGE ── */
+var KEY  = 'piluk_products';
+var PASS = 'piluk2025';
+var SKEY = 'piluk_hero_slides';
+var BKEY = 'piluk_promo_banners';
+function gp(){ try{ return JSON.parse(localStorage.getItem(KEY))||[]; }catch(e){ return []; } }
+function sp(a){ localStorage.setItem(KEY,JSON.stringify(a)); }
+function getSlides(){ try{ return JSON.parse(localStorage.getItem(SKEY))||defaultSlides(); }catch(e){ return defaultSlides(); } }
+function saveSlides(a){ localStorage.setItem(SKEY,JSON.stringify(a)); }
+function getBanners(){ try{ return JSON.parse(localStorage.getItem(BKEY))||defaultBanners(); }catch(e){ return defaultBanners(); } }
+function saveBanners(a){ localStorage.setItem(BKEY,JSON.stringify(a)); }
+
+function defaultSlides(){
+  return [
+    { id:'s1', image_url:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=1200&h=400&fit=crop', label:'New Collection', title:'Premium Leather\nTote Bags', price:'From ৳2,999', link:'https://wa.me/8801754007716' },
+    { id:'s2', image_url:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=1200&h=400&fit=crop', label:'Best Seller', title:'Quilted Chain\nShoulder Bags', price:'From ৳3,500', link:'https://wa.me/8801754007716' },
+    { id:'s3', image_url:'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=1200&h=400&fit=crop', label:'Festive Edit — Limited', title:'Evening Clutches\n& Party Bags', price:'From ৳1,200', link:'https://wa.me/8801754007716' },
+    { id:'s4', image_url:'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=1200&h=400&fit=crop', label:'Everyday Carry', title:'Mini Crossbody\nSling Bags', price:'From ৳1,950', link:'https://wa.me/8801754007716' },
+    { id:'s5', image_url:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=1200&h=400&fit=crop', label:'New Season', title:'Floral Canvas\nBackpacks', price:'From ৳2,200', link:'https://wa.me/8801754007716' },
+    { id:'s6', image_url:'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=1200&h=400&fit=crop', label:'Weekend Special', title:'Build Your\nDream Collection', price:'Shop Now', link:'https://wa.me/8801754007716' }
+  ];
+}
+function defaultBanners(){
+  return [
+    { id:'b1', use_image:false, image_url:'', tag:'Limited Edition', title:'Pearl Embellished\nEvening Clutch', sub:'Festive & Wedding Collection', price_text:'From', price:'৳1,650', btn_text:'SHOP NOW', link:'https://wa.me/8801754007716', style:'dark' },
+    { id:'b2', use_image:false, image_url:'', tag:'New Arrival', title:'Quilted Chain\nShoulder Bag', sub:'Gold Hardware · Adjustable Strap', price_text:'From', price:'৳3,500', btn_text:'SHOP NOW', link:'https://wa.me/8801754007716', style:'light' }
+  ];
+}
+
+/* ── IMAGE PREVIEW ── */
+function prevImg(inputId,boxId){ var url=document.getElementById(inputId).value.trim(); var box=document.getElementById(boxId); if(!box) return; if(url){ box.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'❌\'">'; box.classList.add('has-img'); } else { box.innerHTML='🖼️'; box.classList.remove('has-img'); } }
+function prevBannerImg(i){ var url=(document.getElementById('biurl'+i)||{}).value||''; var box=document.getElementById('bprev'+i); if(!box) return; if(url){ box.innerHTML='<img src="'+url+'" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.innerHTML=\'❌\'">'; } else { box.innerHTML='🖼️'; } }
+function prevSlideImg(){ var url=document.getElementById('sl-img').value.trim(); var box=document.getElementById('sl-prev'); if(!box) return; if(url){ box.innerHTML='<img src="'+url+'" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.innerHTML=\'❌\'">'; } else { box.innerHTML='🖼️'; } }
+
+/* ── SKU ── */
+var CAT_CODE={'Tote Bag':'TB','Shoulder Bag':'SB','Clutch':'CL','Crossbody':'CB','Backpack':'BP','Accessories':'AC'};
+function genSKU(cat){ var code=CAT_CODE[cat]||'GD'; var existing=gp().filter(function(p){ return (p.sku||'').includes('PL-'+code+'-'); }); var max=0; existing.forEach(function(p){ var n=parseInt((p.sku||'').split('-').pop())||0; if(n>max) max=n; }); return 'PL-'+code+'-'+String(max+1).padStart(3,'0'); }
+function autoSKU(force){ var cat=document.getElementById('ap-cat').value; var el=document.getElementById('ap-sku'); if(!el) return; if(force||!el.value||el.value===el.dataset.auto){ var sku=cat?genSKU(cat):'PL-GD-001'; el.value=sku; el.dataset.auto=sku; } }
 
 /* ── LOGIN ── */
-function togglePwd(){
-  var i=document.getElementById('pwdInput');var ic=document.getElementById('eyeIcon');
-  if(i.type==='password'){i.type='text';ic.className='fas fa-eye-slash';}
-  else{i.type='password';ic.className='fas fa-eye';}
-}
-function doLogin(){
-  if(document.getElementById('pwdInput').value===PASS){
-    document.getElementById('loginScreen').style.display='none';
-    document.getElementById('app').classList.add('show');
-    loadExisting();
-    showPage('dashboard');
-  }else{
-    document.getElementById('loginErr').textContent='Incorrect password.';
-    document.getElementById('pwdInput').value='';
-    setTimeout(function(){document.getElementById('loginErr').textContent='';},3000);
-  }
-}
+function doLogin(){ var v=document.getElementById('lpwd').value; if(v===PASS){ document.getElementById('lerr').style.display='none'; document.getElementById('lpwd').value=''; document.getElementById('login-pg').style.display='none'; document.getElementById('admin-pg').style.display='block'; refresh(); } else { document.getElementById('lerr').style.display='block'; showToast('❌','Incorrect password','err'); } }
+function doLogout(){ document.getElementById('admin-pg').style.display='none'; document.getElementById('login-pg').style.display='flex'; }
 
-/* ── LOAD EXISTING products.json (read-only, to populate current state) ── */
-async function loadExisting(){
-  try{
-    var r=await fetch('/products.json?v='+Date.now());
-    if(!r.ok)throw new Error('not found');
-    var data=await r.json();
-    if(Array.isArray(data)){products=data;showToast('Loaded '+products.length+' existing products from site.','info');}
-  }catch(e){
-    products=[];
-    showToast('No products.json found on site yet. Upload a CSV to start.','info');
-  }
-  renderCurrentPage();
-}
+/* ── SECTIONS ── */
+function showSec(id){ document.querySelectorAll('.adm-sec').forEach(function(s){ s.classList.remove('act'); }); document.querySelectorAll('.sb-item').forEach(function(s){ s.classList.remove('act'); }); document.getElementById('sec-'+id).classList.add('act'); var si=document.getElementById('si-'+id); if(si) si.classList.add('act'); if(id==='dashboard') refresh(); if(id==='products') renderAllProds(); if(id==='add') autoSKU(); if(id==='slider') renderSlideList(); if(id==='banners') renderBannerEdit(); if(id==='add-slide'){ document.getElementById('slideFormTitle').textContent='Add Hero Slide'; document.getElementById('slide-edit-id').value=''; ['sl-img','sl-label','sl-title','sl-price'].forEach(function(i){ document.getElementById(i).value=''; }); document.getElementById('sl-link').value='https://wa.me/8801754007716'; document.getElementById('sl-prev').innerHTML='🖼️'; } }
+function openSB(){ document.getElementById('sidebar').classList.add('open'); document.getElementById('adm-ov').classList.add('open'); }
+function closeSB(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('adm-ov').classList.remove('open'); }
 
-/* ── NAVIGATION ── */
-function showPage(page,el){
-  currentPage=1;tableQ='';tableCat='';tableStock='';
-  document.querySelectorAll('.nav-link').forEach(function(n){n.classList.remove('active');});
-  if(el){el.classList.add('active');}
-  else{document.querySelectorAll('.nav-link').forEach(function(l){if(l.textContent.trim().toLowerCase().indexOf(page)>-1)l.classList.add('active');});}
-  var titles={dashboard:'Dashboard',products:'All Products',upload:'Upload CSV',download:'Download & Deploy'};
-  document.getElementById('topbarTitle').textContent=titles[page]||page;
-  currentView=page;renderCurrentPage();
-}
-function renderCurrentPage(){
-  var c=document.getElementById('content');
-  if(currentView==='dashboard')c.innerHTML=buildDashboard();
-  else if(currentView==='products')c.innerHTML=buildTable();
-  else if(currentView==='upload')c.innerHTML=buildUpload();
-  else if(currentView==='download')c.innerHTML=buildDownload();
-  attachPagination();
-}
+/* ── STATS ── */
+function refreshStats(){ var pp=gp(); document.getElementById('st-total').textContent=pp.length; document.getElementById('st-tb').textContent=pp.filter(function(p){ return p.category==='Tote Bag'; }).length; document.getElementById('st-sb').textContent=pp.filter(function(p){ return p.category==='Shoulder Bag'; }).length; document.getElementById('st-cl').textContent=pp.filter(function(p){ return p.category==='Clutch'; }).length; document.getElementById('st-cb').textContent=pp.filter(function(p){ return p.category==='Crossbody'; }).length; document.getElementById('st-ot').textContent=pp.filter(function(p){ return !['Tote Bag','Shoulder Bag','Clutch','Crossbody'].includes(p.category); }).length; document.getElementById('sb-total').textContent=pp.length; }
+function refresh(){ refreshStats(); renderRecent(); }
 
-/* ── DASHBOARD ── */
-function buildDashboard(){
-  var total=products.length;
-  var featured=products.filter(function(p){return p.featured;}).length;
-  var inStock=products.filter(function(p){return p.stock!=='out of stock';}).length;
-  var heroes=products.filter(function(p){return p.heroSlide;}).length;
-  var cats={};products.forEach(function(p){cats[p.category]=(cats[p.category]||0)+1;});
-  var maxCat=Math.max.apply(null,Object.values(cats).concat([1]));
-  var catRows=Object.keys(cats).filter(function(k){return cats[k]>0;}).map(function(k){
-    return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'+
-      '<span style="font-size:12px;color:var(--sub);min-width:140px">'+k+'</span>'+
-      '<div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+(cats[k]/maxCat*100)+'%;background:linear-gradient(90deg,var(--rose),var(--gold));border-radius:3px"></div></div>'+
-      '<span style="font-size:11px;color:var(--muted);min-width:20px;text-align:right">'+cats[k]+'</span></div>';
-  }).join('');
-  var recentRows=products.slice(-5).reverse().map(function(p){
-    return '<tr><td><img class="td-img" src="'+(p.image||'')+'" onerror="this.style.display=\'none\'" alt=""/></td>'+
-      '<td><div class="td-name">'+p.name+'</div><div class="td-sub">'+p.sku+'</div></td>'+
-      '<td style="font-size:12px;color:var(--sub)">'+p.category+'</td>'+
-      '<td style="font-family:monospace;font-size:12px">৳'+p.price.toFixed(2)+'</td>'+
-      '<td><span class="chip '+(p.stock!=='out of stock'?'chip-green':'chip-red')+'">'+(p.stock!=='out of stock'?'In Stock':'Out')+'</span></td>'+
-      '</tr>';
-  }).join('');
-  var empty=products.length===0?'<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)"><i class="fas fa-upload" style="font-size:36px;display:block;margin-bottom:12px;color:var(--border)"></i><p style="font-size:14px">No products yet.</p><p style="font-size:12px;margin-top:6px"><button class="btn-sm btn-rose" style="margin-top:10px" onclick="showPage(\'upload\')"><i class="fas fa-upload"></i>Upload your first CSV</button></p></div>':'';
-  return '<div class="stats-grid">'+
-    sc('fa-shopping-bag','si-rose','Total Products',total,'')+
-    sc('fa-star','si-gold','Featured',featured,'Bestsellers')+
-    sc('fa-check-circle','si-green','In Stock',inStock,'Ready to sell')+
-    sc('fa-images','si-teal','Hero Slides',heroes,'On slider')+
-    '</div>'+
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">'+
-      '<div class="table-wrap" style="padding:18px"><div style="font-size:13px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:7px"><i class="fas fa-tags" style="color:var(--rose)"></i>By Category</div>'+catRows+'</div>'+
-      '<div class="table-wrap"><div style="padding:14px 18px;font-size:13px;font-weight:700;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px"><i class="fas fa-clock" style="color:var(--rose)"></i>Recently Added</div>'+
-        '<table><thead><tr><th></th><th>Product</th><th>Category</th><th>Price</th><th>Stock</th></tr></thead>'+
-        '<tbody>'+(recentRows||'<tr><td colspan="5" style="padding:24px;text-align:center;color:var(--muted)">No products yet</td></tr>')+'</tbody></table>'+
-      '</div>'+
-    '</div>'+
-    empty+
-    '<div style="margin-top:18px"><div class="table-wrap"><div style="padding:16px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">'+
-      '<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--sub)"><i class="fas fa-info-circle" style="color:var(--teal)"></i>Source of truth: <strong style="color:var(--text)">products.json</strong> in your GitHub repo → served by Vercel</div>'+
-      '<button class="btn-sm btn-teal" onclick="showPage(\'download\')"><i class="fas fa-download"></i>Download products.json</button>'+
-    '</div></div></div>';
-}
-function sc(icon,cls,label,val,note){
-  return '<div class="stat-card"><div class="stat-icon '+cls+'"><i class="fas '+icon+'"></i></div><div><div class="stat-label">'+label+'</div><div class="stat-value">'+val+'</div><div class="stat-note">'+note+'</div></div></div>';
-}
+/* ── PRODUCT TABLE ── */
+var CI={'Tote Bag':'🛍️','Shoulder Bag':'👛','Clutch':'💼','Crossbody':'🎀','Backpack':'🎒','Accessories':'💳'};
+function ico(c){ return CI[c]||'👜'; }
+function getImgs(p){ var a=[]; if(p.image_url) a.push(p.image_url); if(p.image_url_2) a.push(p.image_url_2); if(p.image_url_3) a.push(p.image_url_3); return a; }
+function buildTable(pp){ if(!pp.length) return '<div class="empty-st"><div class="ei">📭</div><p>No products yet.</p></div>'; return '<table><thead><tr><th>#</th><th>Images</th><th>SKU</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Desc</th><th>Action</th></tr></thead><tbody>'+pp.map(function(p,i){ var imgs=getImgs(p); var imgCell=imgs.length?'<div class="td-imgs">'+imgs.map(function(url){ return '<div class="td-img-box"><img src="'+url+'" onerror="this.style.display=\'none\'"></div>'; }).join('')+'</div>':'<div class="td-img-box">'+ico(p.category)+'</div>'; var sc=p.stock==='In Stock'?'#059669':p.stock==='Limited'?'#d97706':'#dc2626'; var desc=(p.description||'—').substring(0,40)+((p.description||'').length>40?'…':''); return '<tr><td style="color:var(--light);font-size:12px">'+(i+1)+'</td><td>'+imgCell+'</td><td><span class="td-sku">'+(p.sku||'—')+'</span></td><td style="font-weight:700;color:var(--text);max-width:160px">'+p.name+'</td><td><span class="td-badge">'+(p.category||'—')+'</span></td><td style="font-weight:800;color:var(--pink)">৳'+Number(p.price).toLocaleString()+'</td><td style="font-weight:700;font-size:12px;color:'+sc+'">'+(p.stock||'In Stock')+'</td><td class="td-desc">'+desc+'</td><td><button class="btn btn-red" style="padding:5px 10px;font-size:11px" onclick="delProd(\''+p.id+'\')">🗑️</button></td></tr>'; }).join('')+'</tbody></table>'; }
+function renderRecent(){ document.getElementById('tbl-recent').innerHTML=buildTable(gp().slice(-8).reverse()); }
+function renderAllProds(){ var pp=gp(); var q=(document.getElementById('prodSearch')?document.getElementById('prodSearch').value:'').toLowerCase(); if(q) pp=pp.filter(function(p){ return p.name.toLowerCase().includes(q)||(p.sku||'').toLowerCase().includes(q); }); document.getElementById('prod-count').textContent=gp().length; document.getElementById('tbl-all').innerHTML=buildTable(pp); }
+function delProd(id){ sp(gp().filter(function(p){ return p.id!==id; })); refresh(); renderAllProds(); showToast('🗑️','Product deleted','err'); }
 
-/* ── PRODUCTS TABLE ── */
-function buildTable(){
-  var list=products;
-  if(tableQ){var q=tableQ.toLowerCase();list=list.filter(function(p){return p.name.toLowerCase().indexOf(q)>-1||p.sku.toLowerCase().indexOf(q)>-1||p.category.toLowerCase().indexOf(q)>-1;});}
-  if(tableCat)list=list.filter(function(p){return p.category===tableCat;});
-  if(tableStock)list=list.filter(function(p){return p.stock===tableStock;});
-  var total=list.length,pages=Math.max(1,Math.ceil(total/pageSize));
-  currentPage=Math.min(currentPage,pages);
-  var paged=list.slice((currentPage-1)*pageSize,currentPage*pageSize);
-  var cats=['Shoulder Bags','Clutch Bags','Tote Bags','Backpacks','Crossbody Bags','Mini Bags / Wristlets'];
-  var catOpts=cats.map(function(c){return'<option value="'+c+'"'+(tableCat===c?' selected':'')+'>'+c+'</option>';}).join('');
-  var rows=paged.map(function(p){
-    var ri=products.indexOf(p);
-    return '<tr>'+
-      '<td><img class="td-img" src="'+(p.image||'')+'" onerror="this.style.display=\'none\'" alt=""/></td>'+
-      '<td><div class="td-name">'+p.name+'</div><div class="td-sub">'+p.sku+'</div></td>'+
-      '<td style="font-size:12px;color:var(--sub)">'+p.category+'</td>'+
-      '<td style="font-size:13px">৳'+p.price.toFixed(2)+(p.origPrice>p.price?'<br/><small style="color:var(--muted);text-decoration:line-through">৳'+p.origPrice.toFixed(2)+'</small>':'')+'</td>'+
-      '<td><span class="chip '+(p.stock!=='out of stock'?'chip-green':'chip-red')+'">'+(p.stock!=='out of stock'?'In Stock':'Out')+'</span></td>'+
-      '<td>'+(p.featured?'<span class="chip chip-gold" style="margin-right:3px">Featured</span>':'')+(p.heroSlide?'<span class="chip chip-rose" style="margin-right:3px">Hero</span>':'')+(p.promoBanner?'<span class="chip chip-teal">Promo</span>':'')+'</td>'+
-      '<td><button class="act-btn act-edit" onclick="openEditModal('+ri+')" title="Edit"><i class="fas fa-pen"></i></button><button class="act-btn act-del" onclick="openDelModal('+ri+')" title="Delete"><i class="fas fa-trash-alt"></i></button></td>'+
-    '</tr>';
-  }).join('');
-  if(!rows)rows='<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--muted)">No products match your filters.</td></tr>';
-  var pgs='';for(var i=1;i<=pages;i++)pgs+='<div class="pg-btn'+(i===currentPage?' active':'')+'" data-page="'+i+'">'+i+'</div>';
-  return '<div class="table-wrap">'+
-    '<div class="table-toolbar">'+
-      '<input class="tbl-search" placeholder="Search name, SKU…" value="'+tableQ+'" oninput="tableQ=this.value;currentPage=1;renderCurrentPage()"/>'+
-      '<select class="tbl-sel" onchange="tableCat=this.value;currentPage=1;renderCurrentPage()"><option value="">All Categories</option>'+catOpts+'</select>'+
-      '<select class="tbl-sel" onchange="tableStock=this.value;currentPage=1;renderCurrentPage()">'+
-        '<option value="">All Stock</option>'+
-        '<option value="in stock"'+(tableStock==='in stock'?' selected':'')+'>In Stock</option>'+
-        '<option value="out of stock"'+(tableStock==='out of stock'?' selected':'')+'>Out of Stock</option>'+
-      '</select>'+
-      '<button class="btn-sm btn-ghost" onclick="showPage(\'download\')"><i class="fas fa-download"></i>Save & Download</button>'+
-    '</div>'+
-    '<table><thead><tr><th></th><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Flags</th><th>Actions</th></tr></thead>'+
-    '<tbody>'+rows+'</tbody></table>'+
-    '<div class="pagination"><span>'+total+' product'+(total!==1?'s':'')+' · Page '+currentPage+' of '+pages+'</span><div class="pg-btns" id="pgBtns">'+pgs+'</div></div>'+
-  '</div>';
-}
-function attachPagination(){
-  var pg=document.getElementById('pgBtns');
-  if(pg)pg.querySelectorAll('.pg-btn').forEach(function(b){b.addEventListener('click',function(){currentPage=parseInt(this.getAttribute('data-page'));renderCurrentPage();});});
-}
+/* ── ADD PRODUCT ── */
+function addProd(){ var name=document.getElementById('ap-name').value.trim(); var price=document.getElementById('ap-price').value.trim(); var cat=document.getElementById('ap-cat').value; if(!name||!price||!cat){ showToast('⚠️','Fill Name, Price & Category','err'); return; } var sku=document.getElementById('ap-sku').value.trim()||genSKU(cat); var p={id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),sku:sku,name:name,price:parseFloat(price),category:cat,description:document.getElementById('ap-desc').value.trim(),image_url:document.getElementById('ap-img1').value.trim(),image_url_2:document.getElementById('ap-img2').value.trim(),image_url_3:document.getElementById('ap-img3').value.trim(),badge:document.getElementById('ap-badge').value.trim(),stock:document.getElementById('ap-stock').value}; var pp=gp(); pp.push(p); sp(pp); ['ap-name','ap-price','ap-desc','ap-img1','ap-img2','ap-img3','ap-badge'].forEach(function(id){ document.getElementById(id).value=''; }); document.getElementById('ap-cat').value=''; document.getElementById('ap-stock').value='In Stock'; document.getElementById('ap-sku').value=''; ['pv1','pv2','pv3'].forEach(function(id){ var el=document.getElementById(id); if(el){ el.innerHTML='🖼️'; el.classList.remove('has-img'); } }); refreshStats(); showToast('✅','"'+name+'" ('+sku+') added!','suc'); }
 
-/* ── UPLOAD PAGE ── */
-function buildUpload(){
-  return '<div class="upload-page">'+
-    '<div class="up-card full">'+
-      '<div class="up-title"><i class="fas fa-file-csv"></i>Upload CSV File</div>'+
-      '<div class="up-desc">Upload your product CSV file. New products will be <strong style="color:var(--teal)">added</strong>. Existing products (matched by SKU) will be <strong style="color:var(--gold)">updated</strong>. Nothing is deleted.</div>'+
-      '<div class="drop-zone" id="dropZone">'+
-        '<input type="file" accept=".csv" onchange="handleFile(this.files[0])" id="csvFile"/>'+
-        '<i class="fas fa-cloud-upload-alt"></i>'+
-        '<div class="dz-title">Drop your CSV file here</div>'+
-        '<div class="dz-sub">or <span>click to browse</span> · .csv files only</div>'+
-      '</div>'+
-      '<div class="preview-box" id="previewBox">'+
-        '<div class="preview-header"><span class="preview-title" id="previewTitle">Preview</span><span class="preview-count" id="previewCount"></span></div>'+
-        '<div class="preview-list" id="previewList"></div>'+
-        '<div class="preview-actions">'+
-          '<button class="btn-sm btn-rose" id="confirmImportBtn" onclick="confirmImport()"><i class="fas fa-check"></i>Import All</button>'+
-          '<button class="btn-sm btn-ghost" onclick="cancelImport()"><i class="fas fa-times"></i>Cancel</button>'+
-        '</div>'+
-      '</div>'+
-    '</div>'+
-    '<div class="up-card">'+
-      '<div class="up-title"><i class="fas fa-table"></i>CSV Column Order</div>'+
-      '<div style="font-size:12px;color:var(--sub);line-height:2">'+
-        ['SKU','Name','Category','Price','OriginalPrice','Color','Size','Material','ImageURL','Badge','Description','Featured (yes/no)','Stock (in stock / out of stock)','HeroSlide (yes/no)','PromoBanner (yes/no)','WhatsappMsg']
-        .map(function(c,i){return'<div style="display:flex;gap:8px;align-items:center"><span style="background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:1px 7px;font-size:10px;color:var(--rose);min-width:22px;text-align:center;font-family:monospace">'+(i+1)+'</span><span>'+c+'</span></div>';}).join('')+
-      '</div>'+
-    '</div>'+
-    '<div class="up-card">'+
-      '<div class="up-title"><i class="fas fa-lightbulb"></i>Tips</div>'+
-      '<div style="font-size:12px;color:var(--muted);line-height:1.9">'+
-        '<div>✅ SKU must be <strong style="color:var(--text)">unique</strong> per product</div>'+
-        '<div>✅ First row must be the <strong style="color:var(--text)">header row</strong></div>'+
-        '<div>✅ Featured / HeroSlide / PromoBanner: use <code style="background:var(--panel);border:1px solid var(--border);border-radius:3px;padding:1px 5px;font-size:11px;color:var(--teal)">yes</code> or <code style="background:var(--panel);border:1px solid var(--border);border-radius:3px;padding:1px 5px;font-size:11px;color:var(--teal)">no</code></div>'+
-        '<div>✅ Use <strong style="color:var(--text)">0</strong> for OriginalPrice if no discount</div>'+
-        '<div>✅ After import → go to <strong style="color:var(--rose)">Download & Deploy</strong> to publish</div>'+
-      '</div>'+
-    '</div>'+
-  '</div>';
-}
-
-/* ── FILE HANDLING ── */
-var pendingImport=[];
-function handleFile(file){
-  if(!file)return;
-  var dz=document.getElementById('dropZone');
-  if(dz){dz.classList.add('over');setTimeout(function(){dz.classList.remove('over');},400);}
-  var reader=new FileReader();
-  reader.onload=function(e){processCSV(e.target.result);};
-  reader.readAsText(file);
-}
-
-/* drag & drop */
-document.addEventListener('dragover',function(e){e.preventDefault();});
-document.addEventListener('drop',function(e){
-  e.preventDefault();
-  var dz=document.getElementById('dropZone');
-  if(!dz)return;
-  var file=e.dataTransfer.files[0];
-  if(file&&file.name.endsWith('.csv'))handleFile(file);
-  else showToast('Please drop a .csv file','danger');
-});
-
-function processCSV(text){
-  var rows=parseCSV(text);
-  if(rows.length===0){showToast('CSV appears empty or invalid','danger');return;}
-  /* classify: new vs update */
-  pendingImport=rows;
-  var newP=[],updP=[];
-  rows.forEach(function(p){
-    var ex=products.find(function(x){return x.sku===p.sku;});
-    if(ex)updP.push(p);else newP.push(p);
-  });
-  var pb=document.getElementById('previewBox');
-  if(!pb)return;
-  pb.style.display='block';
-  document.getElementById('previewTitle').textContent='Preview — '+rows.length+' product'+(rows.length!==1?'s':'');
-  document.getElementById('previewCount').textContent=newP.length+' new · '+updP.length+' updates';
-  var listEl=document.getElementById('previewList');
-  listEl.innerHTML=rows.map(function(p){
-    var isNew=!products.find(function(x){return x.sku===p.sku;});
-    return'<div class="preview-row">'+
-      '<i class="fas '+(isNew?'fa-plus-circle i-new':'fa-sync-alt i-update')+'" title="'+(isNew?'New product':'Update existing')+'"></i>'+
-      '<span style="font-weight:600;flex:1">'+p.name+'</span>'+
-      '<span style="color:var(--muted);font-size:11px">'+p.sku+'</span>'+
-      '<span style="color:var(--rose);font-size:11px;margin-left:10px">৳'+p.price.toFixed(2)+'</span>'+
-    '</div>';
+/* ── HERO SLIDER ── */
+function renderSlideList(){
+  var slides=getSlides(); var el=document.getElementById('slideList');
+  var countEl=document.getElementById('slide-count'); var addBtn=document.getElementById('addSlideBtn');
+  if(countEl) countEl.textContent=slides.length;
+  if(addBtn) addBtn.style.display=slides.length>=6?'none':'';
+  if(!slides.length){ el.innerHTML='<div class="empty-st"><div class="ei">🎠</div><p>No slides yet. Add your first slide!</p></div>'; return; }
+  el.innerHTML=slides.map(function(s,i){
+    var thumbHTML=s.image_url?'<div class="slide-thumb"><img src="'+s.image_url+'" alt="" onerror="this.style.display=\'none\'"></div>':'<div class="slide-thumb">🖼️</div>';
+    var titleLine=(s.title||'').replace('\n',' / ');
+    return '<div class="slide-item"><span class="slide-num">Slide '+(i+1)+'</span>'+thumbHTML+'<div class="slide-info"><div class="slide-title-text">'+(titleLine||'(no title)')+'</div><div class="slide-label-text">'+(s.label||'')+(s.price?' · '+s.price:'')+'</div><div class="slide-url-text">'+(s.image_url||'No image URL')+'</div></div><div class="slide-actions">'+(i>0?'<button class="btn btn-outline" style="padding:5px 9px;font-size:13px" onclick="moveSlide('+i+',-1)">↑</button>':'')+(i<slides.length-1?'<button class="btn btn-outline" style="padding:5px 9px;font-size:13px" onclick="moveSlide('+i+',1)">↓</button>':'')+'<button class="btn btn-teal" style="padding:5px 10px;font-size:12px" onclick="editSlide(\''+s.id+'\')">✏️ Edit</button><button class="btn btn-red" style="padding:5px 10px;font-size:12px" onclick="deleteSlide(\''+s.id+'\')">🗑️</button></div></div>';
   }).join('');
 }
+function editSlide(id){ var slides=getSlides(); var s=slides.find(function(x){ return x.id===id; }); if(!s) return; showSec('add-slide'); document.getElementById('slideFormTitle').textContent='Edit Hero Slide'; document.getElementById('slide-edit-id').value=id; document.getElementById('sl-img').value=s.image_url||''; document.getElementById('sl-label').value=s.label||''; document.getElementById('sl-title').value=s.title||''; document.getElementById('sl-price').value=s.price||''; document.getElementById('sl-link').value=s.link||'https://wa.me/8801754007716'; prevSlideImg(); }
+function saveSlide(){ var imgUrl=document.getElementById('sl-img').value.trim(); if(!imgUrl){ showToast('⚠️','Please enter an image URL','err'); return; } var editId=document.getElementById('slide-edit-id').value; var slideData={id:editId||('s'+Date.now().toString(36)),image_url:imgUrl,label:document.getElementById('sl-label').value.trim(),title:document.getElementById('sl-title').value.trim(),price:document.getElementById('sl-price').value.trim(),link:document.getElementById('sl-link').value.trim()||'https://wa.me/8801754007716'}; var slides=getSlides(); if(editId){ var idx=slides.findIndex(function(x){ return x.id===editId; }); if(idx>=0) slides[idx]=slideData; } else { if(slides.length>=6){ showToast('⚠️','Maximum 6 slides allowed','err'); return; } slides.push(slideData); } saveSlides(slides); showToast('✅',editId?'Slide updated!':'Slide added!','suc'); showSec('slider'); }
+function deleteSlide(id){ var slides=getSlides().filter(function(s){ return s.id!==id; }); saveSlides(slides); renderSlideList(); showToast('🗑️','Slide deleted','err'); }
+function moveSlide(idx,dir){ var slides=getSlides(); var ni=idx+dir; if(ni<0||ni>=slides.length) return; var tmp=slides[idx]; slides[idx]=slides[ni]; slides[ni]=tmp; saveSlides(slides); renderSlideList(); }
 
-function confirmImport(){
-  if(pendingImport.length===0)return;
-  var added=0,updated=0;
-  pendingImport.forEach(function(p){
-    var idx=products.findIndex(function(x){return x.sku===p.sku;});
-    if(idx>-1){products[idx]=p;updated++;}else{products.push(p);added++;}
-  });
-  pendingImport=[];
-  document.getElementById('previewBox').style.display='none';
-  showToast('Done! '+added+' added, '+updated+' updated.','success');
-  /* reset file input */
-  var fi=document.getElementById('csvFile');if(fi)fi.value='';
-  renderCurrentPage();
+/* ── PROMO BANNERS ── */
+function renderBannerEdit(){
+  var banners=getBanners(); var el=document.getElementById('bannerEditArea');
+  el.innerHTML=banners.map(function(b,i){
+    var useImg=b.use_image?'checked':'';
+    var prevHTML=b.use_image&&b.image_url?'<div style="height:80px;border-radius:var(--r6);overflow:hidden;margin-bottom:10px"><img src="'+b.image_url+'" style="width:100%;height:100%;object-fit:cover" alt=""/></div>':'<div style="height:80px;border-radius:var(--r6);margin-bottom:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;background:'+(b.style==='light'?'linear-gradient(135deg,#fef0f5,#fce8ef)':'linear-gradient(135deg,#3d1020,#7a2045)')+';color:'+(b.style==='light'?'var(--pink)':'#fff')+'">'+(b.title||'').replace('\n',' ')+'</div>';
+    return '<div class="form-card"><div class="form-section">Banner '+(i+1)+' <span style="font-weight:500;text-transform:none;font-size:12px;color:var(--muted)"> — ('+b.tag+')</span></div>'+prevHTML+'<div class="toggle-row"><input type="checkbox" id="bui'+i+'" '+useImg+' onchange="toggleBannerMode('+i+',this.checked)" style="width:16px;height:16px;accent-color:var(--pink)"><label for="bui'+i+'" class="toggle-lbl">Use custom image URL (checked) — or styled text banner (unchecked)</label></div><div id="bimg'+i+'" style="'+(b.use_image?'':'display:none')+'"><div class="form-grp"><label class="form-lbl">Banner Image URL</label><input class="form-inp" id="biurl'+i+'" type="text" value="'+(b.image_url||'')+'" placeholder="https://image.jpg" oninput="prevBannerImg('+i+')"/><div class="img-prev-row"><div class="img-prev-box" id="bprev'+i+'" style="width:140px;height:78px">'+(b.use_image&&b.image_url?'<img src="'+b.image_url+'" style="width:100%;height:100%;object-fit:cover">':'🖼️')+'</div></div></div></div><div class="form-row"><div class="form-grp"><label class="form-lbl">Tag</label><input class="form-inp" id="btag'+i+'" type="text" value="'+(b.tag||'')+'" placeholder="e.g. New Arrival"/></div><div class="form-grp"><label class="form-lbl">Title (\\n = new line)</label><input class="form-inp" id="btit'+i+'" type="text" value="'+(b.title||'')+'" placeholder="Pearl Embellished\nEvening Clutch"/></div></div><div class="form-row"><div class="form-grp"><label class="form-lbl">Sub-text</label><input class="form-inp" id="bsub'+i+'" type="text" value="'+(b.sub||'')+'" placeholder="Short description"/></div><div class="form-grp"><label class="form-lbl">Price</label><input class="form-inp" id="bpri'+i+'" type="text" value="'+(b.price||'')+'" placeholder="৳3,500"/></div></div><div class="form-row"><div class="form-grp"><label class="form-lbl">Button Text</label><input class="form-inp" id="bbtn'+i+'" type="text" value="'+(b.btn_text||'SHOP NOW')+'" placeholder="SHOP NOW"/></div><div class="form-grp"><label class="form-lbl">Click Link</label><input class="form-inp" id="blnk'+i+'" type="text" value="'+(b.link||'')+'" placeholder="https://wa.me/…"/></div></div><div id="bsty-wrap'+i+'" style="'+(b.use_image?'display:none':'')+'"><div class="form-grp"><label class="form-lbl">Banner Style</label><select class="form-inp" id="bsty'+i+'"><option value="dark"'+(b.style==='dark'?' selected':'')+'>Dark (Rose/Maroon)</option><option value="light"'+(b.style==='light'?' selected':'')+'>Light (Blush Pink)</option></select></div></div><button class="btn btn-teal" style="margin-top:6px" onclick="saveBanner('+i+')">💾 Save Banner '+(i+1)+'</button></div>';
+  }).join('');
 }
-function cancelImport(){
-  pendingImport=[];
-  var pb=document.getElementById('previewBox');if(pb)pb.style.display='none';
-  var fi=document.getElementById('csvFile');if(fi)fi.value='';
-}
+function toggleBannerMode(idx,checked){ var imgEl=document.getElementById('bimg'+idx); if(imgEl) imgEl.style.display=checked?'':'none'; var styWrap=document.getElementById('bsty-wrap'+idx); if(styWrap) styWrap.style.display=checked?'none':''; }
+function saveBanner(i){ var banners=getBanners(); var b=banners[i]; var useImg=document.getElementById('bui'+i).checked; b.use_image=useImg; var biEl=document.getElementById('biurl'+i); b.image_url=biEl?biEl.value.trim():(b.image_url||''); b.tag=document.getElementById('btag'+i).value.trim(); b.title=document.getElementById('btit'+i).value.trim(); b.sub=document.getElementById('bsub'+i).value.trim(); b.price=document.getElementById('bpri'+i).value.trim(); b.btn_text=document.getElementById('bbtn'+i).value.trim()||'SHOP NOW'; b.link=document.getElementById('blnk'+i).value.trim()||'https://wa.me/8801754007716'; var styEl=document.getElementById('bsty'+i); if(styEl) b.style=styEl.value; banners[i]=b; saveBanners(banners); renderBannerEdit(); showToast('✅','Banner '+(i+1)+' saved!','suc'); }
 
-/* ── DOWNLOAD PAGE ── */
-function buildDownload(){
-  var hasProducts=products.length>0;
-  return '<div style="max-width:760px">'+
-    '<div class="dl-box" style="margin-bottom:22px">'+
-      '<div class="dl-info">'+
-        '<h4>Download <code style="background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:2px 8px;font-size:13px;color:var(--teal);font-family:monospace">products.json</code></h4>'+
-        '<p>This file contains all '+products.length+' product'+(products.length!==1?'s':'')+'. Commit it to GitHub and Vercel will deploy it to your live store automatically.</p>'+
-      '</div>'+
-      '<button class="dl-btn" onclick="downloadJSON()" '+(hasProducts?'':'disabled')+'><i class="fas fa-download"></i>Download products.json</button>'+
-    '</div>'+
-    (!hasProducts?'<div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:9px;padding:16px 18px;font-size:13px;color:var(--danger);margin-bottom:22px"><i class="fas fa-exclamation-triangle"></i> No products loaded. <button class="btn-sm btn-rose" style="margin-left:10px" onclick="showPage(\'upload\')">Upload CSV first</button></div>':'')+
-    '<div class="up-card" style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px">'+
-      '<div class="up-title"><i class="fas fa-rocket"></i>How to deploy to your live store</div>'+
-      '<div class="steps">'+
-        step(1,'Download products.json','Click the button above. A file named <code>products.json</code> will download to your computer.')+
-        step(2,'Open your GitHub repo','Go to github.com → your PILUK repository.')+
-        step(3,'Upload the file','Click <strong>Add file → Upload files</strong>. Drag in <code>products.json</code>. If a file with that name already exists, it will be replaced automatically.')+
-        step(4,'Commit the change','Scroll down, click <strong>Commit changes</strong>. Leave the default message or write your own.')+
-        step(5,'Wait ~30 seconds','Vercel detects the change and rebuilds your site. Your live store will now show the updated products for everyone.')+
-      '</div>'+
-    '</div>'+
-  '</div>';
-}
-function step(n,title,desc){
-  return '<div class="step"><div class="step-num">'+n+'</div><div class="step-body"><h5>'+title+'</h5><p>'+desc+'</p></div></div>';
-}
-function downloadJSON(){
-  if(products.length===0){showToast('No products to download','danger');return;}
-  var json=JSON.stringify(products,null,2);
-  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([json],{type:'application/json'}));a.download='products.json';a.click();URL.revokeObjectURL(a.href);
-  showToast('products.json downloaded! Now commit it to GitHub.','success');
-}
+/* ── CSV ── */
+function handleCSV(){ var file=document.getElementById('csv-inp').files[0]; if(!file) return; if(!file.name.endsWith('.csv')){ showToast('❌','.csv only','err'); return; } var prog=document.getElementById('prog'); var bar=document.getElementById('prog-b'); var pt=document.getElementById('prog-t'); var ps=document.getElementById('prog-s'); prog.classList.add('show'); bar.style.width='10%'; pt.textContent='Reading…'; var reader=new FileReader(); reader.onload=function(e){ bar.style.width='40%'; pt.textContent='Parsing…'; var lines=e.target.result.split('\n').map(function(l){ return l.trim(); }).filter(Boolean); if(lines.length<2){ showToast('❌','Need header + data','err'); prog.classList.remove('show'); return; } var hdrs=parseCSVLine(lines[0]).map(function(h){ return h.trim().toLowerCase().replace(/\s+/g,'_'); }); var miss=['name','price','category'].filter(function(r){ return !hdrs.includes(r); }); if(miss.length){ showToast('❌','Missing: '+miss.join(', '),'err'); prog.classList.remove('show'); return; } bar.style.width='65%'; pt.textContent='Importing…'; var pp=gp(); var added=0,skip=0; for(var i=1;i<lines.length;i++){ var vals=parseCSVLine(lines[i]); var row={}; hdrs.forEach(function(h,idx){ row[h]=(vals[idx]||'').trim(); }); if(!row.name||!row.price||!row.category){ skip++; continue; } var sku=row.sku||genSKU(row.category); pp.push({id:'c'+Date.now().toString(36)+i,sku:sku,name:row.name,price:parseFloat(row.price)||0,category:row.category,description:row.description||'',image_url:row.image_url||'',image_url_2:row.image_url_2||'',image_url_3:row.image_url_3||'',badge:row.badge||'',stock:row.stock||'In Stock'}); added++; } sp(pp); bar.style.width='100%'; pt.textContent='Done!'; ps.textContent='✅ '+added+' added  ⚠️ '+skip+' skipped'; showToast('✅',added+' products imported!','suc'); refreshStats(); document.getElementById('csv-inp').value=''; setTimeout(function(){ prog.classList.remove('show'); bar.style.width='0%'; },5000); }; reader.readAsText(file); }
+function parseCSVLine(line){ var res=[],cur='',q=false; for(var i=0;i<line.length;i++){ var c=line[i]; if(c==='"'){ q=!q; } else if(c===','&&!q){ res.push(cur); cur=''; } else { cur+=c; } } res.push(cur); return res; }
 
-/* ── EDIT MODAL ── */
-function openEditModal(idx){
-  editIdx=idx;var p=products[idx];
-  document.getElementById('editModalTitle').textContent='Edit: '+p.name;
-  document.getElementById('eSku').value=p.sku||'';
-  document.getElementById('eName').value=p.name||'';
-  document.getElementById('eCat').value=p.category||'';
-  document.getElementById('ePrice').value=p.price||'';
-  document.getElementById('eOrigPrice').value=p.origPrice||'';
-  document.getElementById('eColor').value=p.color||'';
-  document.getElementById('eSize').value=p.size||'';
-  document.getElementById('eMaterial').value=p.material||'';
-  document.getElementById('eImage').value=p.image||'';
-  document.getElementById('eBadge').value=p.badge||'';
-  document.getElementById('eDesc').value=p.desc||'';
-  document.getElementById('eStock').value=p.stock||'in stock';
-  setTog('togFeatured',p.featured);setTog('togHero',p.heroSlide);setTog('togPromo',p.promoBanner);
-  document.getElementById('editModal').classList.add('open');
-}
-function closeEditModal(){document.getElementById('editModal').classList.remove('open');editIdx=null;}
-function setTog(id,val){var el=document.getElementById(id);if(val)el.classList.add('on');else el.classList.remove('on');}
-function togOn(id){return document.getElementById(id).classList.contains('on');}
-function saveEdit(){
-  if(editIdx===null)return;
-  var name=document.getElementById('eName').value.trim();
-  var sku=document.getElementById('eSku').value.trim();
-  var price=parseFloat(document.getElementById('ePrice').value)||0;
-  if(!name||!sku||!price){showToast('Name, SKU and Price are required.','danger');return;}
-  products[editIdx]={
-    sku:sku,name:name,category:document.getElementById('eCat').value,
-    price:price,origPrice:parseFloat(document.getElementById('eOrigPrice').value)||0,
-    color:document.getElementById('eColor').value.trim(),size:document.getElementById('eSize').value.trim(),
-    material:document.getElementById('eMaterial').value.trim(),image:document.getElementById('eImage').value.trim(),
-    badge:document.getElementById('eBadge').value.trim(),desc:document.getElementById('eDesc').value.trim(),
-    stock:document.getElementById('eStock').value,
-    featured:togOn('togFeatured'),heroSlide:togOn('togHero'),promoBanner:togOn('togPromo'),waMsg:products[editIdx].waMsg||''
-  };
-  closeEditModal();renderCurrentPage();
-  showToast('Product updated! Remember to download & commit products.json.','success');
-}
+/* ── JSON ── */
+function dlJSON(){ var pp=gp(); var blob=new Blob([JSON.stringify({store:'PILUK',exported:new Date().toISOString(),total:pp.length,products:pp},null,2)],{type:'application/json'}); var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='piluk_products.json'; a.click(); URL.revokeObjectURL(url); showToast('💾','JSON exported!','suc'); }
+function trigImportJSON(){ document.getElementById('json-inp').click(); }
+function handleJSON(){ var file=document.getElementById('json-inp').files[0]; if(!file) return; var reader=new FileReader(); reader.onload=function(e){ try{ var d=JSON.parse(e.target.result); var pp=Array.isArray(d)?d:(d.products||[]); if(!pp.length){ showToast('❌','No products found','err'); return; } openModal('📥 Import JSON','Replace ALL products with '+pp.length+' products from this file?',function(){ sp(pp); refresh(); showToast('✅',pp.length+' imported!','suc'); closeModal(); }); }catch(err){ showToast('❌','Invalid JSON','err'); } document.getElementById('json-inp').value=''; }; reader.readAsText(file); }
+function dlSample(){ var s='name,price,category,description,image_url,image_url_2,image_url_3,badge,stock,sku\nPILUK Classic Leather Tote,2999,Tote Bag,"Full-grain leather tote. Magnetic snap closure. Fits 15-inch laptop.",https://example.com/img1.jpg,https://example.com/img2.jpg,,HOT,In Stock,PL-TB-001\nPILUK Satin Evening Clutch,1200,Clutch,"Satin clutch with wrist strap. 22x12cm.",https://example.com/clutch.jpg,,,NEW,In Stock,PL-CL-001'; var blob=new Blob([s],{type:'text/csv'}); var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download='piluk_sample.csv'; a.click(); URL.revokeObjectURL(url); showToast('📥','Sample CSV downloaded!','suc'); }
+function confirmClear(){ openModal('⚠️ Clear All','Permanently delete ALL products?',function(){ sp([]); refresh(); renderAllProds(); showToast('🗑️','All deleted','err'); closeModal(); }); }
 
-/* ── DELETE ── */
-function openDelModal(idx){delIdx=idx;document.getElementById('delProductName').textContent=products[idx]?products[idx].name:'';document.getElementById('delModal').classList.add('open');}
-function closeDelModal(){document.getElementById('delModal').classList.remove('open');delIdx=null;}
-function confirmDelete(){
-  if(delIdx===null)return;products.splice(delIdx,1);closeDelModal();renderCurrentPage();
-  showToast('Product deleted. Remember to download & commit products.json.','danger');
-}
+/* ── MODAL / TOAST ── */
+function openModal(t,b,ok){ document.getElementById('mt').textContent=t; document.getElementById('mb').textContent=b; document.getElementById('mok').onclick=ok; document.getElementById('modal').classList.add('open'); }
+function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+var _tt; function showToast(icon,msg,type){ var t=document.getElementById('toast'); document.getElementById('ti').textContent=icon+' '; document.getElementById('tm').textContent=msg; t.className='toast '+(type||'')+' show'; clearTimeout(_tt); _tt=setTimeout(function(){ t.classList.remove('show'); },3200); }
 
-/* ── CSV PARSER ── */
-function parseCSV(csv){
-  var lines=csv.trim().split(/\r?\n/);
-  if(lines.length<2)return[];
-  var hdrs=parseRow(lines[0]).map(function(h){return h.toLowerCase().replace(/"/g,'').trim();});
-  var res=[];
-  for(var i=1;i<lines.length;i++){
-    if(!lines[i].trim())continue;
-    var cells=parseRow(lines[i]);
-    if(!cells[0]||cells[0].replace(/"/g,'').trim()==='')continue;
-    var o={};hdrs.forEach(function(h,idx){o[h]=(cells[idx]||'').replace(/^"|"$/g,'').trim();});
-    var price=parseFloat(o.price||o.d||0);
-    if(isNaN(price)||!o.sku&&!o.a)continue;
-    res.push({
-      sku:o.sku||o.a||('PL-'+i),
-      name:o.name||o.b||'Product',
-      category:o.category||o.c||'General',
-      price:price,
-      origPrice:parseFloat(o.originalprice||o['original price']||o.e||0)||0,
-      color:o.color||o.f||'',
-      size:o.size||o.g||'',
-      material:o.material||o.h||'',
-      image:o.imageurl||o['image url']||o.image||o.i||'',
-      badge:o.badge||o.j||'',
-      desc:o.description||o.k||'',
-      featured:(o.featured||o.l||'').toLowerCase()==='yes',
-      stock:(o.stock||o.m||'in stock').toLowerCase().trim(),
-      heroSlide:(o.heroslide||o['hero slide']||o.n||'').toLowerCase()==='yes',
-      promoBanner:(o.promobanner||o['promo banner']||o.o||'').toLowerCase()==='yes',
-      waMsg:o.whatsappmsg||o['whatsapp msg']||o.p||''
-    });
-  }
-  return res;
-}
-function parseRow(row){
-  var res=[],cur='',inQ=false;
-  for(var i=0;i<row.length;i++){
-    var c=row[i];
-    if(c==='"'){inQ=!inQ;}
-    else if(c===','&&!inQ){res.push(cur.trim());cur='';}
-    else{cur+=c;}
-  }
-  res.push(cur.trim());return res;
-}
+/* drag-drop */
+var uz=document.getElementById('uz'); if(uz){ uz.addEventListener('dragover',function(e){ e.preventDefault(); uz.classList.add('drag'); }); uz.addEventListener('dragleave',function(){ uz.classList.remove('drag'); }); uz.addEventListener('drop',function(e){ e.preventDefault(); uz.classList.remove('drag'); var f=e.dataTransfer.files[0]; if(f){ document.getElementById('csv-inp').files=e.dataTransfer.files; handleCSV(); } }); }
 
-/* ── TOAST ── */
-function showToast(msg,type){
-  type=type||'info';var wrap=document.getElementById('toastWrap');
-  var t=document.createElement('div');t.className='toast '+type;
-  var icons={success:'fa-check-circle',danger:'fa-exclamation-circle',info:'fa-info-circle'};
-  t.innerHTML='<i class="fas '+(icons[type]||'fa-info-circle')+'"></i><span>'+msg+'</span>';
-  wrap.appendChild(t);
-  requestAnimationFrame(function(){requestAnimationFrame(function(){t.classList.add('show');});});
-  setTimeout(function(){t.classList.remove('show');setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},350);},4000);
-}
-
-/* ── KEYBOARD ── */
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeEditModal();closeDelModal();}});
+/* ── INIT ── */
+async function init(){ if(!gp().length){ try{ var r=await fetch('products.json'); if(r.ok){ var d=await r.json(); if(d.products&&d.products.length) sp(d.products); } }catch(e){} } }
+init();
 </script>
 </body>
 </html>
